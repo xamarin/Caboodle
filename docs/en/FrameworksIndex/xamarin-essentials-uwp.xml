@@ -570,6 +570,19 @@
       <Member Id="M:Xamarin.Essentials.ReadOnlyFile.#ctor(System.String,System.String)" />
       <Member Id="M:Xamarin.Essentials.ReadOnlyFile.#ctor(Xamarin.Essentials.FileBase)" />
     </Type>
+    <Type Name="Xamarin.Essentials.RecordedAudio" Id="T:Xamarin.Essentials.RecordedAudio">
+      <Member Id="M:Xamarin.Essentials.RecordedAudio.Dispose" />
+      <Member Id="M:Xamarin.Essentials.RecordedAudio.Dispose(System.Boolean)" />
+      <Member Id="M:Xamarin.Essentials.RecordedAudio.Finalize" />
+      <Member Id="M:Xamarin.Essentials.RecordedAudio.PlatformOpenReadStreamAsync" />
+      <Member Id="P:Xamarin.Essentials.RecordedAudio.Disposed" />
+    </Type>
+    <Type Name="Xamarin.Essentials.Recorder" Id="T:Xamarin.Essentials.Recorder">
+      <Member Id="M:Xamarin.Essentials.Recorder.RecordAsync" />
+      <Member Id="M:Xamarin.Essentials.Recorder.StopAsync" />
+      <Member Id="P:Xamarin.Essentials.Recorder.CanRecordAudio" />
+      <Member Id="P:Xamarin.Essentials.Recorder.IsRecording" />
+    </Type>
     <Type Name="Xamarin.Essentials.RectangleExtensions" Id="T:Xamarin.Essentials.RectangleExtensions">
       <Member Id="M:Xamarin.Essentials.RectangleExtensions.ToSystemRectangle(Windows.Foundation.Rect)" />
       <Member Id="M:Xamarin.Essentials.RectangleExtensions.ToSystemRectangleF(Windows.Foundation.Rect)" />

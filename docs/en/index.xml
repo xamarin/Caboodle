@@ -184,6 +184,8 @@
       <Type Name="PointExtensions" Kind="Class" />
       <Type Name="Preferences" Kind="Class" />
       <Type Name="ReadOnlyFile" Kind="Class" />
+      <Type Name="RecordedAudio" Kind="Class" />
+      <Type Name="Recorder" Kind="Class" />
       <Type Name="RectangleExtensions" Kind="Class" />
       <Type Name="SecureStorage" Kind="Class" />
       <Type Name="SensorSpeed" Kind="Enumeration" />

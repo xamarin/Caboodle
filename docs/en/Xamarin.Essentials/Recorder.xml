@@ -1,0 +1,103 @@
+<Type Name="Recorder" FullName="Xamarin.Essentials.Recorder">
+  <TypeSignature Language="C#" Value="public static class Recorder" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit Recorder extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Essentials.Recorder" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Essentials</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>Record microphone input and saves it to a file.</summary>
+    <remarks>
+      <para></para>
+    </remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="CanRecordAudio">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task&lt;bool&gt; CanRecordAudio { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property class System.Threading.Tasks.Task`1&lt;bool&gt; CanRecordAudio" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Essentials.Recorder.CanRecordAudio" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Boolean&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Indicates whether recording audio is possible.</summary>
+        <value>True if recording audio is supoorted.</value>
+        <remarks>
+          <para></para>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsRecording">
+      <MemberSignature Language="C#" Value="public static bool IsRecording { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property bool IsRecording" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Essentials.Recorder.IsRecording" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Indicates whether a recording is in progress.</summary>
+        <value>True if a recording is in progress.</value>
+        <remarks>
+          <para></para>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RecordAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task RecordAsync ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task RecordAsync() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.Recorder.RecordAsync" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Starts a recording.</summary>
+        <returns>
+          <para></para>
+        </returns>
+        <remarks>
+          <para></para>
+        </remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="StopAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task&lt;Xamarin.Essentials.RecordedAudio&gt; StopAsync ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task`1&lt;class Xamarin.Essentials.RecordedAudio&gt; StopAsync() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.Recorder.StopAsync" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;Xamarin.Essentials.RecordedAudio&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Stops the currently active recording.</summary>
+        <returns>A .wav file containing the recorded audio. </returns>
+        <remarks>This file is temporary and should be copied by the user.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

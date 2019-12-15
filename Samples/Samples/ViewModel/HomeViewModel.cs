@@ -157,6 +157,12 @@ namespace Samples.ViewModel
                     "Quickly and easily add persistent preferences.",
                     new[] { "settings", "preferences", "prefs", "storage" }),
                 new SampleItem(
+                    "🎤",
+                    "Recorder",
+                    typeof(RecorderPage),
+                    "Record Audio Files",
+                    new[] { "recording", "audio", "microphone", "sound" }),
+                new SampleItem(
                     "🔒",
                     "Secure Storage",
                     typeof(SecureStoragePage),

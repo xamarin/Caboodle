@@ -8,6 +8,7 @@ using Android.Content.PM;
 using Android.Hardware;
 using Android.Hardware.Camera2;
 using Android.Locations;
+using Android.Media;
 using Android.Net;
 using Android.Net.Wifi;
 using Android.OS;
@@ -188,6 +189,9 @@ namespace Xamarin.Essentials
 
         internal static SensorManager SensorManager =>
             AppContext.GetSystemService(Context.SensorService) as SensorManager;
+
+        internal static AudioManager AudioManager =>
+            AppContext.GetSystemService(Context.AudioService) as AudioManager;
 
         internal static ClipboardManager ClipboardManager =>
             AppContext.GetSystemService(Context.ClipboardService) as ClipboardManager;

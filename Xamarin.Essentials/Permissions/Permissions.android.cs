@@ -174,6 +174,9 @@ namespace Xamarin.Essentials
                 case PermissionType.WriteExternalStorage:
                     permissions.Add((Manifest.Permission.WriteExternalStorage, false));
                     break;
+                case PermissionType.RecordAudio:
+                    permissions.Add((Manifest.Permission.RecordAudio, true));
+                    break;
             }
 
             if (onlyRuntimePermissions)
