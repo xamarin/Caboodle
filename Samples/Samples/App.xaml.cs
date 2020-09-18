@@ -30,7 +30,8 @@ namespace Samples
 
             MainPage = new NavigationPage(new HomePage());
 
-            AppActions.OnAppAction += AppActions_OnAppAction;
+            if (Device.RuntimePlatform != Device.macOS)
+                AppActions.OnAppAction += AppActions_OnAppAction;
         }
 
         protected override async void OnStart()
@@ -48,9 +49,12 @@ namespace Samples
                 typeof(Distribute));
             }
 
-            await AppActions.SetAsync(
-                new AppAction("app_info", "App Info", icon: "app_info_action_icon"),
-                new AppAction("battery_info", "Battery Info"));
+            if (Device.RuntimePlatform != Device.macOS)
+            {
+                await AppActions.SetAsync(
+                    new AppAction("app_info", "App Info", icon: "app_info_action_icon"),
+                    new AppAction("battery_info", "Battery Info"));
+            }
         }
 
         void AppActions_OnAppAction(object sender, AppActionEventArgs e)

@@ -1,55 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Xamarin.Essentials
 {
     public class Contact
     {
-        public string Name { get; }
+        public Contact()
+        {
+        }
 
-        public ContactType ContactType { get; }
-
-        public IReadOnlyList<ContactPhone> Numbers { get; }
-
-        public IReadOnlyList<ContactEmail> Emails { get; }
-
-        internal Contact(
-            string name,
-            List<ContactPhone> numbers,
-            List<ContactEmail> email,
-            ContactType contactType)
+        public Contact(string name, IEnumerable<ContactPhone> numbers, IEnumerable<ContactEmail> email, ContactType contactType)
         {
             Name = name;
-            Emails = email;
-            Numbers = numbers;
+            Emails = email.ToList();
+            Numbers = numbers.ToList();
             ContactType = contactType;
         }
+
+        public string Name { get; set; }
+
+        public ContactType ContactType { get; set; }
+
+        public IReadOnlyList<ContactPhone> Numbers { get; set; }
+
+        public IReadOnlyList<ContactEmail> Emails { get; set; }
     }
 
     public class ContactEmail
     {
-        public string EmailAddress { get; }
+        public ContactEmail()
+        {
+        }
 
-        public ContactType ContactType { get; }
-
-        internal ContactEmail(string email, ContactType contactType)
+        public ContactEmail(string email, ContactType contactType)
         {
             EmailAddress = email;
             ContactType = contactType;
         }
+
+        public string EmailAddress { get; set; }
+
+        public ContactType ContactType { get; set; }
     }
 
     public class ContactPhone
     {
-        public string PhoneNumber { get; }
+        public ContactPhone()
+        {
+        }
 
-        public ContactType ContactType { get; }
-
-        internal ContactPhone(string phoneNumber, ContactType contactType)
+        public ContactPhone(string phoneNumber, ContactType contactType)
         {
             PhoneNumber = phoneNumber;
             ContactType = contactType;
         }
+
+        public string PhoneNumber { get; set; }
+
+        public ContactType ContactType { get; set; }
     }
 }

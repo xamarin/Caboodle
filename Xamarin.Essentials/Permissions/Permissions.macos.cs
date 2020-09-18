@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreLocation;
+using EventKit;
 using Foundation;
 
 namespace Xamarin.Essentials
@@ -60,19 +61,103 @@ namespace Xamarin.Essentials
             }
         }
 
-        public partial class EventPermissions : BasePlatformPermission
+        internal static class EventPermission
         {
-        }
+            internal static PermissionStatus CheckPermissionStatus(EKEntityType entityType)
+            {
+                var status = EKEventStore.GetAuthorizationStatus(entityType);
+                return status switch
+                {
+                    EKAuthorizationStatus.Authorized => PermissionStatus.Granted,
+                    EKAuthorizationStatus.Denied => PermissionStatus.Denied,
+                    EKAuthorizationStatus.Restricted => PermissionStatus.Restricted,
+                    _ => PermissionStatus.Unknown,
+                };
+            }
 
-        public partial class Battery : BasePlatformPermission
-        {
+            internal static async Task<PermissionStatus> RequestPermissionAsync(EKEntityType entityType)
+            {
+                var eventStore = new EKEventStore();
+
+                var results = await eventStore.RequestAccessAsync(entityType);
+
+                return results.Item1 ? PermissionStatus.Granted : PermissionStatus.Denied;
+            }
         }
 
         public partial class CalendarRead : BasePlatformPermission
         {
+            protected override Func<IEnumerable<string>> RequiredInfoPlistKeys =>
+                () => new string[] { "NSCalendarsUsageDescription" };
+
+            public override Task<PermissionStatus> CheckStatusAsync()
+            {
+                EnsureDeclared();
+
+                return Task.FromResult(EventPermission.CheckPermissionStatus(EKEntityType.Event));
+            }
+
+            public override Task<PermissionStatus> RequestAsync()
+            {
+                EnsureDeclared();
+
+                var status = EventPermission.CheckPermissionStatus(EKEntityType.Event);
+                if (status == PermissionStatus.Granted)
+                    return Task.FromResult(status);
+
+                return EventPermission.RequestPermissionAsync(EKEntityType.Event);
+            }
         }
 
         public partial class CalendarWrite : BasePlatformPermission
+        {
+            protected override Func<IEnumerable<string>> RequiredInfoPlistKeys =>
+                () => new string[] { "NSCalendarsUsageDescription" };
+
+            public override Task<PermissionStatus> CheckStatusAsync()
+            {
+                EnsureDeclared();
+
+                return Task.FromResult(EventPermission.CheckPermissionStatus(EKEntityType.Event));
+            }
+
+            public override Task<PermissionStatus> RequestAsync()
+            {
+                EnsureDeclared();
+
+                var status = EventPermission.CheckPermissionStatus(EKEntityType.Event);
+                if (status == PermissionStatus.Granted)
+                    return Task.FromResult(status);
+
+                return EventPermission.RequestPermissionAsync(EKEntityType.Event);
+            }
+        }
+
+        public partial class Reminders : BasePlatformPermission
+        {
+            protected override Func<IEnumerable<string>> RequiredInfoPlistKeys =>
+                () => new string[] { "NSRemindersUsageDescription" };
+
+            public override Task<PermissionStatus> CheckStatusAsync()
+            {
+                EnsureDeclared();
+
+                return Task.FromResult(EventPermission.CheckPermissionStatus(EKEntityType.Reminder));
+            }
+
+            public override Task<PermissionStatus> RequestAsync()
+            {
+                EnsureDeclared();
+
+                var status = EventPermission.CheckPermissionStatus(EKEntityType.Reminder);
+                if (status == PermissionStatus.Granted)
+                    return Task.FromResult(status);
+
+                return EventPermission.RequestPermissionAsync(EKEntityType.Reminder);
+            }
+        }
+
+        public partial class Battery : BasePlatformPermission
         {
         }
 

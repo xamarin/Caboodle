@@ -1,0 +1,83 @@
+﻿<views:BasePage  xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:converters="clr-namespace:Samples.Converters;assembly=Samples"
+                 xmlns:views="clr-namespace:Samples.View"
+                 xmlns:viewmodels="clr-namespace:Samples.ViewModel"
+                 xmlns:essentials="clr-namespace:Xamarin.Essentials;assembly=Xamarin.Essentials"
+                 x:Class="Samples.View.CalendarPage"
+                 Title="Calendar">
+
+    <views:BasePage.Resources>
+        <ResourceDictionary>
+            <converters:CalendarEventDateConverter x:Key="CalendarEventDateConverter" />
+        </ResourceDictionary>
+    </views:BasePage.Resources>
+
+    <views:BasePage.BindingContext>
+        <viewmodels:CalendarViewModel />
+    </views:BasePage.BindingContext>
+
+    <StackLayout Padding="12" Spacing="6">
+        <Label Text="Quickly view a range of calendars and upcoming events." FontAttributes="Bold" Margin="0,12" />
+
+        <Label Text="Filter:" FontAttributes="Bold" Margin="0,12,0,0" />
+
+        <StackLayout Orientation="Horizontal" Spacing="6" Margin="12,0,0,0">
+            <CheckBox IsChecked="{Binding UseStartDateTime}"
+                      VerticalOptions="Center" Margin="0,0,-6,0"/>
+            <Label Text="Start" VerticalOptions="Center" WidthRequest="50" />
+            <DatePicker Date="{Binding StartDate}"
+                        MinimumDate="1970-01-01"
+                        IsEnabled="{Binding UseStartDateTime}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand" />
+            <TimePicker Time="{Binding StartTime}"
+                        IsEnabled="{Binding UseStartDateTime}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand" />
+        </StackLayout>
+
+
+        <StackLayout Orientation="Horizontal" Spacing="6" Margin="12,0,0,0">
+            <CheckBox IsChecked="{Binding UseEndDateTime}"
+                      VerticalOptions="Center" Margin="0,0,-6,0"/>
+            <Label Text="End" VerticalOptions="Center" WidthRequest="50" />
+            <DatePicker Date="{Binding EndDate}"
+                        MinimumDate="1970-01-01"
+                        IsEnabled="{Binding UseEndDateTime}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand" />
+            <TimePicker Time="{Binding EndTime}"
+                        IsEnabled="{Binding UseEndDateTime}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="FillAndExpand" />
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal" Margin="12,0,0,0">
+            <Picker Title="Select a Calendar"
+                    ItemsSource="{Binding CalendarList}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding SelectedCalendar}"
+                    HorizontalOptions="FillAndExpand" />
+            <Button Text="Refresh" Command="{Binding RefreshCalendarsCommand}" />
+        </StackLayout>
+
+        <Label Text="Events:" FontAttributes="Bold" Margin="0,12,0,0" />
+
+        <ListView ItemsSource="{Binding EventList}" HasUnevenRows="True"
+                  SelectionMode="None" ItemTapped="OnEventTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="essentials:CalendarEvent">
+                    <ViewCell>
+                        <StackLayout Padding="12" Spacing="3">
+                            <Label Text="{Binding Title}" FontAttributes="Bold" />
+                            <Label Text="{Binding ., Converter={StaticResource CalendarEventDateConverter}}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </StackLayout>
+
+</views:BasePage>

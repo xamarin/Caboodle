@@ -55,6 +55,12 @@ namespace Samples.ViewModel
                     "Quickly and easily open a browser to a specific website.",
                     new[] { "browser", "web", "internet" }),
                 new SampleItem(
+                    "📆",
+                    "Calendar",
+                    typeof(CalendarPage),
+                    "Access the calendars on the device.",
+                    new[] { "calendar", "event", "appointment" }),
+                new SampleItem(
                     "📋",
                     "Clipboard",
                     typeof(ClipboardPage),

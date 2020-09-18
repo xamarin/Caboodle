@@ -50,10 +50,6 @@ namespace Xamarin.Essentials
             }
         }
 
-        public partial class EventPermissions : BasePlatformPermission
-        {
-        }
-
         public partial class Battery : BasePlatformPermission
         {
         }

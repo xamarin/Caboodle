@@ -1,0 +1,48 @@
+﻿<views:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:views="clr-namespace:Samples.View"
+                xmlns:viewmodels="clr-namespace:Samples.ViewModel"
+                xmlns:essentials="clr-namespace:Xamarin.Essentials;assembly=Xamarin.Essentials"
+                xmlns:converters="clr-namespace:Samples.Converters;assembly=Samples"
+                x:Class="Samples.View.CalendarEventPage"
+                x:DataType="essentials:CalendarEvent"
+                Title="{Binding Title}">
+
+    <ScrollView>
+        <StackLayout Padding="12" Spacing="6">
+
+        <Label Text="{Binding Title}" FontSize="Title" HorizontalTextAlignment="Center" />
+
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                  ColumnSpacing="6" RowSpacing="6">
+                <Label Grid.Column="0" Grid.Row="0" Text="When: " FontAttributes="Bold" />
+                <Label Grid.Column="1" Grid.Row="0" Text="{Binding ., Converter={StaticResource CalendarEventDateConverter}}" />
+
+                <Label Grid.Column="0" Grid.Row="1" Text="Duration: " FontAttributes="Bold" />
+                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Duration}" />
+
+                <Label Grid.Column="0" Grid.Row="2" Text="Location: " FontAttributes="Bold" />
+                <Label Grid.Column="1" Grid.Row="2" Text="{Binding Location}" />
+
+                <Label Grid.Column="0" Grid.Row="3" Text="Attendees: " FontAttributes="Bold" />
+                <ScrollView Grid.Column="1" Grid.Row="3">
+                    <StackLayout Spacing="3" BindableLayout.ItemsSource="{Binding Attendees}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="essentials:CalendarEventAttendee">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Name}" />
+                                    <Label Text="{Binding Email}" TextColor="DarkGray"/>
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </ScrollView>
+
+                <Label Grid.Column="0" Grid.Row="4" Text="Description: " FontAttributes="Bold" />
+                <Label Grid.Column="1" Grid.Row="4" Text="{Binding Description}" />
+            </Grid>
+
+        </StackLayout>
+    </ScrollView>
+
+</views:BasePage>

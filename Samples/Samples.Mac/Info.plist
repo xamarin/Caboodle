@@ -30,6 +30,8 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Access to your location is required for cool things to happen!</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Calendar Access</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

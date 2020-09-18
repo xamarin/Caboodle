@@ -34,10 +34,10 @@ namespace Xamarin.Essentials
                 emails = emails.Distinct().ToList();
 
                 return new Contact(
-                                    contactSelected.Name,
-                                    phones,
-                                    emails,
-                                    ContactType.Unknown);
+                    contactSelected.Name,
+                    phones,
+                    emails,
+                    ContactType.Unknown);
             }
             catch (Exception)
             {
