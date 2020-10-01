@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BasePage  xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:views="clr-namespace:Samples.View"
+                 xmlns:viewmodels="clr-namespace:Samples.ViewModel"
+                 xmlns:essentials="clr-namespace:Xamarin.Essentials;assembly=Xamarin.Essentials"
+                 xmlns:converters="clr-namespace:Samples.Converters;assembly=Samples"
+                 x:Class="Samples.View.CalendarEventAttendeeAddPage"
+                 x:DataType="viewmodels:CalendarEventAddAttendeeViewModel"
+                 Title="CalendarEventAttendeeAdd"
+                 Padding="20,20,20,20">
+    <views:BasePage.Content>
+    <StackLayout>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition/>
+          <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition/>
+          <RowDefinition/>
+          <RowDefinition/>
+          <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Text="Event:"
+               HorizontalTextAlignment="Center"/>
+        <Entry IsReadOnly="true"
+               Text="{Binding EventName}"
+               Grid.Row="0"
+               Grid.Column="1"/>
+
+        <Label Text="Attendee Name"
+               HorizontalTextAlignment="Center"
+               Grid.Row="1"
+               Grid.Column="0"/>
+        <Entry Placeholder="Name..."
+               Text="{Binding Name}"
+               Grid.Row="1"
+               Grid.Column="1"/>
+
+        <Label Text="Attendee Email"
+               HorizontalTextAlignment="Center"
+               Grid.Row="2"
+               Grid.Column="0"/>
+        <Entry Placeholder="example@domain.com..."
+               Text="{Binding EmailAddress}"
+               Grid.Row="2"
+               Grid.Column="1"/>
+
+        <Label Text="Attendee Attendance Type"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="End"
+               Grid.Row="3"
+               Grid.Column="0"/>
+        <Picker x:Name="SelectedRecurrenceEndType"
+                ItemsSource="{Binding AttendeeTypes}"
+                SelectedItem="{Binding SelectedAttendeeType, Mode=TwoWay}"
+                Grid.Row="3"
+                Grid.Column="1"/>
+      </Grid>
+      <Button Text="Add Attendee"
+              Command="{Binding CreateCalendarEventAttendee}"
+              IsEnabled="{Binding CanCreateAttendee}"/>
+    </StackLayout>
+  </views:BasePage.Content>
+</views:BasePage>

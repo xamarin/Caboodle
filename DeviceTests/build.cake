@@ -306,6 +306,7 @@ Task("build-uwp")
         c.Properties["ContinuousIntegrationBuild"] = new List<string> { "false" };
         c.Properties["AppxBundlePlatforms"] = new List<string> { "x86" };
         c.Properties["AppxBundle"] = new List<string> { "Always" };
+        c.Properties["AppxPackageSigningEnabled"] = new List<string> { "true" };
         c.Targets.Clear();
         c.Targets.Add("Rebuild");
         c.BinaryLogger = new MSBuildBinaryLogSettings {
@@ -330,13 +331,19 @@ Task("test-uwp-emu")
     // Try to uninstall the app if it exists from before
     uninstallPS();
 
+
+    var certPath = GetFiles("./**/DeviceTests.UWP_TemporaryKey.pfx").First();
+    Information("Installing certificate: {0}", certPath);
+
+    StartProcess("certutil", "-p Microsoft -importpfx \"" + MakeAbsolute(certPath).FullPath + "\"");
+
     // Install the appx
     var dependencies = GetFiles("./**/AppPackages/**/Dependencies/x86/*.appx");
     foreach (var dep in dependencies) {
         Information("Installing Dependency appx: {0}", dep);
         StartProcess("powershell", "Add-AppxPackage -Path \"" + MakeAbsolute(dep).FullPath + "\"");
     }
-    var appxBundlePath = GetFiles("./**/AppPackages/**/*.appxbundle").First();
+    var appxBundlePath = GetFiles("./**/AppPackages/**/*.msixbundle").First();
     Information("Installing appx: {0}", appxBundlePath);
     StartProcess("powershell", "Add-AppxPackage -Path \"" + MakeAbsolute(appxBundlePath).FullPath + "\"");
 
@@ -345,9 +352,10 @@ Task("test-uwp-emu")
     var tcpListenerTask = DownloadTcpTextAsync(TCP_LISTEN_PORT, UWP_TEST_RESULTS_PATH);
 
     // Launch the app
-    Information("Running appx: {0}", appxBundlePath);
     var ip = TCP_LISTEN_HOST.Replace(".", "-");
-    System.Diagnostics.Process.Start($"xamarin-essentials-device-tests://{ip}_{TCP_LISTEN_PORT}");
+    var executeCommand = $"xamarin-essentials-device-tests://{ip}_{TCP_LISTEN_PORT}";
+    Information("Running appx: {0}", executeCommand);
+    StartProcess("explorer", executeCommand);
 
     // Wait for the test results to come back
     Information("Waiting for tests...");

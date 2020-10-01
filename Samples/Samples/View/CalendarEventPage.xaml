@@ -1,4 +1,5 @@
-﻿<views:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                 xmlns:views="clr-namespace:Samples.View"
                 xmlns:viewmodels="clr-namespace:Samples.ViewModel"
@@ -6,43 +7,216 @@
                 xmlns:converters="clr-namespace:Samples.Converters;assembly=Samples"
                 x:Class="Samples.View.CalendarEventPage"
                 x:DataType="essentials:CalendarEvent"
-                Title="{Binding Title}">
-
-    <ScrollView>
-        <StackLayout Padding="12" Spacing="6">
-
-        <Label Text="{Binding Title}" FontSize="Title" HorizontalTextAlignment="Center" />
-
-            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto"
-                  ColumnSpacing="6" RowSpacing="6">
-                <Label Grid.Column="0" Grid.Row="0" Text="When: " FontAttributes="Bold" />
-                <Label Grid.Column="1" Grid.Row="0" Text="{Binding ., Converter={StaticResource CalendarEventDateConverter}}" />
-
-                <Label Grid.Column="0" Grid.Row="1" Text="Duration: " FontAttributes="Bold" />
-                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Duration}" />
-
-                <Label Grid.Column="0" Grid.Row="2" Text="Location: " FontAttributes="Bold" />
-                <Label Grid.Column="1" Grid.Row="2" Text="{Binding Location}" />
-
-                <Label Grid.Column="0" Grid.Row="3" Text="Attendees: " FontAttributes="Bold" />
-                <ScrollView Grid.Column="1" Grid.Row="3">
-                    <StackLayout Spacing="3" BindableLayout.ItemsSource="{Binding Attendees}">
-                        <BindableLayout.ItemTemplate>
-                            <DataTemplate x:DataType="essentials:CalendarEventAttendee">
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Name}" />
-                                    <Label Text="{Binding Email}" TextColor="DarkGray"/>
-                                </StackLayout>
-                            </DataTemplate>
-                        </BindableLayout.ItemTemplate>
-                    </StackLayout>
-                </ScrollView>
-
-                <Label Grid.Column="0" Grid.Row="4" Text="Description: " FontAttributes="Bold" />
-                <Label Grid.Column="1" Grid.Row="4" Text="{Binding Description}" />
-            </Grid>
-
-        </StackLayout>
-    </ScrollView>
-
+                Title="Event"
+                Padding="20,20,20,20">
+  <views:BasePage.Resources>
+    <ResourceDictionary>
+      <x:String x:Key="DateDisplayFormatter">{0:dd/MM/yy hh:mm tt}</x:String>
+      <x:String x:Key="TimeSpanFormatter">{0:h\:mm}</x:String>
+      <converters:AttendeeRequiredColorConverter x:Key="AttendeeRequiredColorConverter" />
+      <converters:ReminderTextConverter x:Key="ReminderTextConverter" />
+      <converters:RecurrenceRuleTextConverter x:Key="RecurrenceRuleTextConverter" />
+      <converters:StartWidthDisplayConverter x:Key="StartWidthDisplayConverter" />
+    </ResourceDictionary>
+  </views:BasePage.Resources>
+  <views:BasePage.Content>
+    <StackLayout>
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label x:Name="EventId"
+               Text="{Binding Id}"
+               IsVisible="False"/>
+        <Label x:Name="CalendarId"
+               Text="{Binding CalendarId}"
+               IsVisible="False"/>
+        <Label x:Name="EventName"
+               Text="{Binding Title}"
+               FontSize="34"
+               TextColor="Black"
+               HorizontalTextAlignment="Center"
+               Grid.Row="0"/>
+        <Grid Grid.Row="1">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+          </Grid.ColumnDefinitions>
+          <Button Grid.Column="0"
+                  Text="Edit"
+                  Clicked="OnEditEventButtonClicked"/>
+          <Button Grid.Column="1"
+                  Margin="0,0,15,0"
+                  Text="Delete"
+                  Clicked="OnDeleteEventButtonClicked"/>
+        </Grid>
+        <Grid Grid.Row="2">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <Label Grid.Column="0"
+                 Text="Recurrence:"/>
+          <Label Grid.Column="1"
+                 HorizontalTextAlignment="Center"
+                 Text="{Binding RecurrancePattern, Converter={StaticResource RecurrenceRuleTextConverter}}"/>
+        </Grid>
+        <Grid Grid.Row="3">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+          </Grid.RowDefinitions>
+          <Label Grid.Row="1"
+                 Grid.Column="0"
+                 Text="Location:"/>
+          <Label Grid.Row="1"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="3"
+                 HorizontalTextAlignment="Center"
+                 Text="{Binding Location}"/>
+          <Label Grid.Row="2"
+                 Grid.Column="0"
+                 Text="Url:"/>
+          <Label Grid.Row="2"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="3"
+                 HorizontalTextAlignment="Center"
+                 Text="{Binding Url}"/>
+          <Label Grid.Row="3"
+                 Grid.Column="0"
+                 Text="When:"/>
+          <Label Grid.Column="1"
+                 Grid.Row="3"
+                 Text="{Binding StartDate, StringFormat={StaticResource DateDisplayFormatter}, Mode=OneWay}"
+                 TextColor="Black"
+                 Grid.ColumnSpan="{Binding AllDay, Converter={StaticResource StartWidthDisplayConverter}}"
+                 HorizontalTextAlignment="Center"/>
+          <Label Grid.Column="2"
+                 Grid.Row="3"
+                 Text="-"
+                 IsVisible="{Binding AllDay, Converter={StaticResource NegativeConverter}}"/>
+          <Label Grid.Column="3"
+                 Grid.Row="3"
+                 Text="{Binding EndDate, StringFormat={StaticResource DateDisplayFormatter}, Mode=OneWay}"
+                 TextColor="Black"
+                 HorizontalTextAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="4">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+          </Grid.ColumnDefinitions>
+          <Label Text="Duration: "/>
+          <Label Grid.Column="1"
+                 Text="{Binding Duration, StringFormat={StaticResource TimeSpanFormatter}}"
+                 HorizontalTextAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="5">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+          </Grid.ColumnDefinitions>
+          <Label Text="Reminders: "/>
+          <StackLayout Grid.Row="0"
+                       Grid.Column="1"
+                       BindableLayout.ItemsSource="{Binding Reminders}">
+            <BindableLayout.ItemTemplate>
+              <DataTemplate x:DataType="essentials:CalendarEventReminder">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+                  <Label Text="{Binding MinutesPriorToEventStart, Converter={StaticResource ReminderTextConverter}}"/>
+                  <Button Grid.Column="1"
+                          Margin="0,0,15,0"
+                          BackgroundColor="Red"
+                          Text=" - "
+                          Clicked="OnRemoveReminderFromEventButtonClicked"/>
+                </Grid>
+              </DataTemplate>
+            </BindableLayout.ItemTemplate>
+          </StackLayout>
+        </Grid>
+        <ScrollView Grid.Row="6">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Text="Attendees:"/>
+            <StackLayout Grid.Row="0"
+                         Grid.Column="1"
+                         BindableLayout.ItemsSource="{Binding Attendees}">
+              <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="essentials:CalendarEventAttendee">
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="Auto"/>
+                      <ColumnDefinition/>
+                      <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <BoxView Color="{Binding Type, Converter={StaticResource AttendeeRequiredColorConverter}}"
+                             Grid.ColumnSpan="3"/>
+                    <Label Text="{Binding Name}"
+                           TextColor="Black"/>
+                    <Label Grid.Column="1"
+                           Text="{Binding Email}"
+                           TextColor="DarkGray"/>
+                    <Label Grid.Column="2"
+                           Text="Organizer"
+                           IsVisible="{Binding IsOrganizer}"
+                           BackgroundColor="MediumPurple"
+                           VerticalTextAlignment="Center"
+                           Margin="0,0,15,0"
+                           Padding="10,0,10,0"/>
+                    <Button Grid.Column="2"
+                            IsVisible="{Binding IsOrganizer, Converter={StaticResource NegativeConverter}}"
+                            Padding="10,0,10,0"
+                            Margin="0,0,15,0"
+                            BackgroundColor="Red"
+                            Text=" - "
+                            Clicked="OnRemoveAttendeeFromEventButtonClicked"/>
+                  </Grid>
+                </DataTemplate>
+              </BindableLayout.ItemTemplate>
+            </StackLayout>
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="0,0,15,0"
+                    Text="Invite"
+                    Clicked="OnAddAttendeeButtonClicked"/>
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   Text="Description:"/>
+            <Label Grid.Row="2"
+                   Grid.Column="1"
+                   Text="{Binding Description}"/>
+          </Grid>
+        </ScrollView >
+      </Grid>
+    </StackLayout>
+  </views:BasePage.Content>
 </views:BasePage>

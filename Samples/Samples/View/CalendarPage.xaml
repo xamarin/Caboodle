@@ -1,83 +1,180 @@
-﻿<views:BasePage  xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BasePage  xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                 xmlns:converters="clr-namespace:Samples.Converters;assembly=Samples"
                  xmlns:views="clr-namespace:Samples.View"
                  xmlns:viewmodels="clr-namespace:Samples.ViewModel"
+                 xmlns:behaviors="clr-namespace:Samples.Behaviors;assembly=Samples"
+                 xmlns:converters="clr-namespace:Samples.Converters;assembly=Samples"
                  xmlns:essentials="clr-namespace:Xamarin.Essentials;assembly=Xamarin.Essentials"
                  x:Class="Samples.View.CalendarPage"
+                 x:DataType="viewmodels:CalendarViewModel"
                  Title="Calendar">
-
     <views:BasePage.Resources>
         <ResourceDictionary>
-            <converters:CalendarEventDateConverter x:Key="CalendarEventDateConverter" />
+            <converters:CheckBoxEventArgsConverter x:Key="CheckBoxEventArgsConverter" />
+            <converters:DateSelectedEventArgsConverter x:Key="DateSelectedEventArgsConverter" />
+            <converters:TimeSelectedEventArgsConverter x:Key="TimeSelectedEventArgsConverter" />
+            <DataTemplate x:DataType="essentials:CalendarEvent"
+                          x:Key="EventItemTemplate">
+                <ViewCell>
+                    <StackLayout>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Title}"
+                                   TextColor="Black"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding StartDate, StringFormat={StaticResource DateDisplayFormatter}}"
+                                   TextColor="Black"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Grid.Column="2"
+                                   Text="-"
+                                   IsVisible="{Binding AllDay, Converter={StaticResource NegativeConverter}}"/>
+                            <Label Grid.Column="3"
+                                   Text="{Binding EndDate, StringFormat={StaticResource DateDisplayFormatter}}"
+                                   TextColor="Black"
+                                   HorizontalTextAlignment="Center" />
+                        </Grid>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
         </ResourceDictionary>
     </views:BasePage.Resources>
-
     <views:BasePage.BindingContext>
         <viewmodels:CalendarViewModel />
     </views:BasePage.BindingContext>
-
-    <StackLayout Padding="12" Spacing="6">
-        <Label Text="Quickly view a range of calendars and upcoming events." FontAttributes="Bold" Margin="0,12" />
-
-        <Label Text="Filter:" FontAttributes="Bold" Margin="0,12,0,0" />
-
-        <StackLayout Orientation="Horizontal" Spacing="6" Margin="12,0,0,0">
-            <CheckBox IsChecked="{Binding UseStartDateTime}"
-                      VerticalOptions="Center" Margin="0,0,-6,0"/>
-            <Label Text="Start" VerticalOptions="Center" WidthRequest="50" />
-            <DatePicker Date="{Binding StartDate}"
-                        MinimumDate="1970-01-01"
-                        IsEnabled="{Binding UseStartDateTime}"
-                        VerticalOptions="Center"
-                        HorizontalOptions="FillAndExpand" />
-            <TimePicker Time="{Binding StartTime}"
-                        IsEnabled="{Binding UseStartDateTime}"
-                        VerticalOptions="Center"
-                        HorizontalOptions="FillAndExpand" />
-        </StackLayout>
-
-
-        <StackLayout Orientation="Horizontal" Spacing="6" Margin="12,0,0,0">
-            <CheckBox IsChecked="{Binding UseEndDateTime}"
-                      VerticalOptions="Center" Margin="0,0,-6,0"/>
-            <Label Text="End" VerticalOptions="Center" WidthRequest="50" />
-            <DatePicker Date="{Binding EndDate}"
-                        MinimumDate="1970-01-01"
-                        IsEnabled="{Binding UseEndDateTime}"
-                        VerticalOptions="Center"
-                        HorizontalOptions="FillAndExpand" />
-            <TimePicker Time="{Binding EndTime}"
-                        IsEnabled="{Binding UseEndDateTime}"
-                        VerticalOptions="Center"
-                        HorizontalOptions="FillAndExpand" />
-        </StackLayout>
-
-        <StackLayout Orientation="Horizontal" Margin="12,0,0,0">
-            <Picker Title="Select a Calendar"
+    <views:BasePage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackLayout>
+                <Label Text="Quickly view a range of calendars and upcoming events." FontAttributes="Bold" Margin="12" />
+                <Button Text="Load Calendars"
+                        Command="{Binding GetCalendars}" 
+                        HorizontalOptions="Center"/>
+            </StackLayout>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Picker x:Name="SelectedCalendar"
+                    Title="Select a Calendar"
                     ItemsSource="{Binding CalendarList}"
                     ItemDisplayBinding="{Binding Name}"
-                    SelectedItem="{Binding SelectedCalendar}"
-                    HorizontalOptions="FillAndExpand" />
-            <Button Text="Refresh" Command="{Binding RefreshCalendarsCommand}" />
-        </StackLayout>
-
-        <Label Text="Events:" FontAttributes="Bold" Margin="0,12,0,0" />
-
-        <ListView ItemsSource="{Binding EventList}" HasUnevenRows="True"
-                  SelectionMode="None" ItemTapped="OnEventTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="essentials:CalendarEvent">
-                    <ViewCell>
-                        <StackLayout Padding="12" Spacing="3">
-                            <Label Text="{Binding Title}" FontAttributes="Bold" />
-                            <Label Text="{Binding ., Converter={StaticResource CalendarEventDateConverter}}" />
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-    </StackLayout>
-
+                    SelectedItem="{Binding SelectedCalendar, Mode=TwoWay}"/>
+                <Button Grid.Column="1"
+                        Text="Add"
+                        Clicked="OnAddCalendarButtonClicked"/>
+            </Grid>
+            <Button Grid.Row="2"
+                    Text="Add Event"
+                    IsEnabled="{Binding CanCreateCalendarEvent}"
+                    Clicked="OnAddEventButtonClicked"/>
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Row="0"
+                          Grid.Column="0"
+                          IsChecked="{Binding StartDatePickersEnabled}">
+                    <CheckBox.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="CheckedChanged"
+                                                          Command="{Binding StartDateEnabledCheckBoxChanged}"
+                                                          Converter="{StaticResource CheckBoxEventArgsConverter}" />
+                    </CheckBox.Behaviors>
+                </CheckBox>
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Text="Start Date"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center" />
+                <DatePicker Date="{Binding StartDate}"
+                            MinimumDate="1970-01-01"
+                            IsEnabled="{Binding StartDatePickersEnabled}"
+                            Grid.Row = "0"
+                            Grid.Column="2">
+                    <DatePicker.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="DateSelected"
+                                                          Command="{Binding StartDateSelectedCommand}"
+                                                          Converter="{StaticResource DateSelectedEventArgsConverter}" />
+                    </DatePicker.Behaviors>
+                </DatePicker>
+                <TimePicker Time="{Binding StartTime}"
+                            IsEnabled="{Binding StartDatePickersEnabled}"
+                            Grid.Row = "0"
+                            Grid.Column="3">
+                    <TimePicker.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="PropertyChanged"
+                                                          Command="{Binding StartTimeSelectedCommand}"
+                                                          Converter="{StaticResource TimeSelectedEventArgsConverter}" />
+                    </TimePicker.Behaviors>
+                </TimePicker>
+                <CheckBox Grid.Row="1"
+                          Grid.Column="0"
+                          IsChecked="{Binding EndDatePickersEnabled}">
+                    <CheckBox.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="CheckedChanged"
+                                                          Command="{Binding EndDateEnabledCheckBoxChanged}"
+                                                          Converter="{StaticResource CheckBoxEventArgsConverter}" />
+                    </CheckBox.Behaviors>
+                </CheckBox>
+                <Label Text="End Date"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       Grid.Row="1"
+                       Grid.Column="1" />
+                <DatePicker Date="{Binding EndDate}"
+                            MinimumDate="1970-01-01"
+                            IsEnabled="{Binding EndDatePickersEnabled}"
+                            Grid.Row="1"
+                            Grid.Column="2">
+                    <DatePicker.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="DateSelected"
+                                                          Command="{Binding EndDateSelectedCommand}"
+                                                          Converter="{StaticResource DateSelectedEventArgsConverter}" />
+                    </DatePicker.Behaviors>
+                </DatePicker>
+                <TimePicker Time="{Binding EndTime}"
+                            IsEnabled="{Binding EndDatePickersEnabled}"
+                            Grid.Row = "1"
+                            Grid.Column="3">
+                    <TimePicker.Behaviors>
+                        <behaviors:EventToCommandBehavior EventName="PropertyChanged"
+                                                          Command="{Binding EndTimeSelectedCommand}"
+                                                          Converter="{StaticResource TimeSelectedEventArgsConverter}" />
+                    </TimePicker.Behaviors>
+                </TimePicker>
+            </Grid>
+            <BoxView Grid.Row="4"
+                     VerticalOptions="Center"
+                     HorizontalOptions="FillAndExpand"
+                     HeightRequest="1"
+                     Color="#5b5d68" />
+            <ListView Grid.Row="5"
+                      HasUnevenRows="true"
+                      ItemsSource="{Binding EventList}"
+                      ItemTemplate="{StaticResource EventItemTemplate}"
+                      SelectionMode="None"
+                      ItemTapped="OnEventTapped" />
+        </Grid>
+    </views:BasePage.Content>
 </views:BasePage>

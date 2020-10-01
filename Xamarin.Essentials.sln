@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29505.209
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Essentials", "Xamarin.Essentials\Xamarin.Essentials.csproj", "{CD6D6AE6-83A1-41B1-BD7C-C555A77C288B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Essentials", "Xamarin.Essentials\Xamarin.Essentials.csproj", "{CD6D6AE6-83A1-41B1-BD7C-C555A77C288B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples", "Samples\Samples\Samples.csproj", "{B4227123-2EEB-494A-A221-C061B5659AED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Samples", "Samples\Samples\Samples.csproj", "{B4227123-2EEB-494A-A221-C061B5659AED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.Android", "Samples\Samples.Android\Samples.Android.csproj", "{3C0CDEF3-495E-45F4-8B12-0E05EF11295C}"
 EndProject

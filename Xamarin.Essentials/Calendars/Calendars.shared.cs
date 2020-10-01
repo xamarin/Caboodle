@@ -47,6 +47,24 @@ namespace Xamarin.Essentials
             return await PlatformGetEventAsync(eventId);
         }
 
+        public static Task<CalendarEvent> GetEventInstanceAsync(string eventId, DateTimeOffset instanceDate) => PlatformGetEventInstanceAsync(eventId, instanceDate);
+
+        public static Task<string> CreateCalendarEvent(CalendarEvent newEvent) => PlatformCreateCalendarEvent(newEvent);
+
+        public static Task<bool> UpdateCalendarEvent(CalendarEvent eventToUpdate) => PlatformUpdateCalendarEvent(eventToUpdate);
+
+        public static Task<bool> SetEventRecurrenceEndDate(string eventId, DateTimeOffset recurrenceEndDate) => PlatformSetEventRecurrenceEndDate(eventId, recurrenceEndDate);
+
+        public static Task<bool> DeleteCalendarEventInstanceByDate(string eventId, string calendarId, DateTimeOffset dateOfInstanceUtc) => PlatformDeleteCalendarEventInstanceByDate(eventId, calendarId, dateOfInstanceUtc);
+
+        public static Task<bool> DeleteCalendarEvent(string eventId, string calendarId) => PlatformDeleteCalendarEvent(eventId, calendarId);
+
+        public static Task<string> CreateCalendar(Calendar newCalendar) => PlatformCreateCalendar(newCalendar);
+
+        public static Task<bool> AddAttendeeToEvent(CalendarEventAttendee newAttendee, string eventId) => PlatformAddAttendeeToEvent(newAttendee, eventId);
+
+        public static Task<bool> RemoveAttendeeFromEvent(CalendarEventAttendee newAttendee, string eventId) => PlatformRemoveAttendeeFromEvent(newAttendee, eventId);
+
         static ArgumentException InvalidCalendar(string calendarId) =>
             new ArgumentOutOfRangeException($"No calendar exists with the ID '{calendarId}'.", nameof(calendarId));
 

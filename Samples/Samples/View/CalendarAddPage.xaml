@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BasePage  xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:views="clr-namespace:Samples.View"
+                 xmlns:viewmodels="clr-namespace:Samples.ViewModel"
+                 xmlns:essentials="clr-namespace:Xamarin.Essentials;assembly=Xamarin.Essentials"
+                 xmlns:converters="clr-namespace:Samples.Converters;assembly=Samples"
+                 x:Class="Samples.View.CalendarAddPage"
+                 x:DataType="viewmodels:CalendarAddViewModel"
+                 Title="CalendarAddPage"
+                 Padding="20,20,20,20">
+    <views:BasePage.Content>
+    <StackLayout>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition/>
+          <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Text="Title"
+               HorizontalTextAlignment="Center"
+               Grid.Column="0"/>
+        <Entry Placeholder="Title..."
+               Text="{Binding CalendarName}"
+               Grid.Column="1"/>
+      </Grid>
+      <Button Text="Add Calendar"
+              Command="{Binding CreateCalendar}"
+              IsEnabled="{Binding CanCreateCalendar}"/>
+    </StackLayout>
+  </views:BasePage.Content>
+</views:BasePage>
