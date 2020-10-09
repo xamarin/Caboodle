@@ -4,17 +4,19 @@
     {
         internal static double ToPlatform(this SensorSpeed sensorSpeed)
         {
+            // Timing intervals to match Android sensor speeds in seconds
+            // https://developer.android.com/guide/topics/sensors/sensors_overview
             switch (sensorSpeed)
             {
                 case SensorSpeed.Fastest:
-                    return .02;
+                    return .005;
                 case SensorSpeed.Game:
-                    return .04;
+                    return .020;
                 case SensorSpeed.UI:
-                    return .08;
+                    return .060;
             }
 
-            return .225;
+            return .200;
         }
     }
 }
