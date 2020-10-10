@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -14,6 +15,11 @@ namespace Samples.ViewModel
         double w;
         bool isActive;
         int speed = 0;
+
+        double i;
+        int cnt = 0;
+        double sum = 0;
+        Stopwatch sw = new Stopwatch();
 
         public OrientationSensorViewModel()
         {
@@ -64,6 +70,12 @@ namespace Samples.ViewModel
             set => SetProperty(ref speed, value);
         }
 
+        public double Interval
+        {
+            get => i;
+            set => SetProperty(ref i, value);
+        }
+
         public override void OnAppearing()
         {
             OrientationSensor.ReadingChanged += OnReadingChanged;
@@ -80,6 +92,9 @@ namespace Samples.ViewModel
 
         async void OnStart()
         {
+            cnt = 0;
+            sum = 0;
+            sw.Reset();
             try
             {
                 OrientationSensor.Start((SensorSpeed)Speed);
@@ -95,10 +110,22 @@ namespace Samples.ViewModel
         {
             IsActive = false;
             OrientationSensor.Stop();
+            sw.Stop();
         }
 
         void OnReadingChanged(object sender, OrientationSensorChangedEventArgs e)
         {
+            sw.Stop();
+            var ms = sw.Elapsed.TotalMilliseconds;
+            if (ms > 0)
+            {
+                sum += ms;
+                cnt += 1;
+                Interval = sum / cnt;
+            }
+            sw.Reset();
+            sw.Start();
+
             var data = e.Reading;
             switch ((SensorSpeed)Speed)
             {
