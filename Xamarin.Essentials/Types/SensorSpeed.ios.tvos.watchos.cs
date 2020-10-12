@@ -1,22 +1,20 @@
 ﻿namespace Xamarin.Essentials
 {
-    static class SensorSpeedExtensions
+    internal static partial class SensorSpeedExtensions
     {
         internal static double ToPlatform(this SensorSpeed sensorSpeed)
         {
-            // Timing intervals to match Android sensor speeds in seconds
-            // https://developer.android.com/guide/topics/sensors/sensors_overview
             switch (sensorSpeed)
             {
                 case SensorSpeed.Fastest:
-                    return .005;
+                    return sensorIntervalFastest / 1000.0;
                 case SensorSpeed.Game:
-                    return .020;
+                    return sensorIntervalGame / 1000.0;
                 case SensorSpeed.UI:
-                    return .060;
+                    return sensorIntervalUI / 1000.0;
             }
 
-            return .200;
+            return sensorIntervalDefault / 1000.0;
         }
     }
 }
