@@ -49,7 +49,7 @@ namespace Samples
                 typeof(Distribute));
             }
 
-            if (Device.RuntimePlatform != Device.macOS)
+            if (Device.RuntimePlatform != Device.macOS && Device.RuntimePlatform != Device.Tizen)
             {
                 await AppActions.SetAsync(
                     new AppAction("app_info", "App Info", icon: "app_info_action_icon"),

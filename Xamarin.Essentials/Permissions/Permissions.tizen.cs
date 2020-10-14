@@ -92,10 +92,14 @@ namespace Xamarin.Essentials
 
         public partial class CalendarRead : BasePlatformPermission
         {
+            public override (string tizenPrivilege, bool isRuntime)[] RequiredPrivileges =>
+                new[] { ("http://tizen.org/privilege/calendar.read", true) };
         }
 
         public partial class CalendarWrite : BasePlatformPermission
         {
+            public override (string tizenPrivilege, bool isRuntime)[] RequiredPrivileges =>
+                new[] { ("http://tizen.org/privilege/calendar.write", true) };
         }
 
         public partial class Camera : BasePlatformPermission

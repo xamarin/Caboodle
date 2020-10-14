@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using Tizen.NET.MaterialComponents;
+using Xamarin.Forms;
 using Xamarin.Forms.Platform.Tizen;
 
 namespace Samples.Tizen
@@ -10,7 +11,7 @@ namespace Samples.Tizen
         protected override void OnCreate()
         {
             base.OnCreate();
-
+            MaterialComponents.Init(DirectoryInfo.Resource);
             LoadApplication(formsApp ??= new App());
         }
 

@@ -22,6 +22,7 @@
         <privilege>http://tizen.org/privilege/network.get</privilege>
         <privilege>http://tizen.org/privilege/externalstorage.appdata</privilege>
         <privilege>http://tizen.org/privilege/contact.read</privilege>
+        <privilege>http://tizen.org/privilege/calendar.read</privilege>
     </privileges>
     <dependencies />
     <provides-appdefined-privileges />
@@ -30,4 +31,5 @@
     <feature name="http://tizen.org/feature/location.wps">true</feature>
     <feature name="http://tizen.org/feature/maps">true</feature>
     <feature name="http://tizen.org/feature/speech.synthesis">true</feature>
+    <feature name="http://tizen.org/feature/calendar">true</feature>
 </manifest>
