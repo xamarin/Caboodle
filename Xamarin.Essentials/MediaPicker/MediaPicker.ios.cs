@@ -4,13 +4,14 @@ using System.Threading.Tasks;
 using Foundation;
 using MobileCoreServices;
 using Photos;
+using PhotosUI;
 using UIKit;
 
 namespace Xamarin.Essentials
 {
     public static partial class MediaPicker
     {
-        static UIImagePickerController picker;
+        static UIViewController pickerRef;
 
         static bool PlatformIsCaptureSupported
             => UIImagePickerController.IsSourceTypeAvailable(UIImagePickerControllerSourceType.Camera);
@@ -29,53 +30,75 @@ namespace Xamarin.Essentials
 
         static async Task<FileResult> PhotoAsync(MediaPickerOptions options, bool photo, bool pickExisting)
         {
-            var sourceType = pickExisting ? UIImagePickerControllerSourceType.PhotoLibrary : UIImagePickerControllerSourceType.Camera;
-            var mediaType = photo ? UTType.Image : UTType.Movie;
-
-            if (!UIImagePickerController.IsSourceTypeAvailable(sourceType))
-                throw new FeatureNotSupportedException();
-            if (!UIImagePickerController.AvailableMediaTypes(sourceType).Contains(mediaType))
-                throw new FeatureNotSupportedException();
-
-            if (!photo)
-                await Permissions.EnsureGrantedAsync<Permissions.Microphone>();
-
-            // permission is not required on iOS 11 for the picker
-            if (!Platform.HasOSVersion(11, 0))
-            {
-                await Permissions.EnsureGrantedAsync<Permissions.Photos>();
-            }
-
             var vc = Platform.GetCurrentViewController(true);
 
-            picker = new UIImagePickerController();
-            picker.SourceType = sourceType;
-            picker.MediaTypes = new string[] { mediaType };
-            picker.AllowsEditing = false;
-            if (!photo && !pickExisting)
-                picker.CameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Video;
+            var tcs = new TaskCompletionSource<FileResult>();
+
+            if (Platform.HasOSVersion(14, 0))
+            {
+                var config = new PHPickerConfiguration();
+                config.Filter = photo
+                    ? PHPickerFilter.ImagesFilter
+                    : PHPickerFilter.VideosFilter;
+
+                var picker = new PHPickerViewController(config);
+                picker.Delegate = new PPD
+                {
+                    CompletedHandler = res =>
+                        tcs.TrySetResult(PickerResultsToMediaFile(res))
+                };
+
+                pickerRef = picker;
+            }
+            else
+            {
+                var sourceType = pickExisting
+                    ? UIImagePickerControllerSourceType.PhotoLibrary
+                    : UIImagePickerControllerSourceType.Camera;
+                var mediaType = photo ? UTType.Image : UTType.Movie;
+
+                if (!UIImagePickerController.IsSourceTypeAvailable(sourceType))
+                    throw new FeatureNotSupportedException();
+                if (!UIImagePickerController.AvailableMediaTypes(sourceType).Contains(mediaType))
+                    throw new FeatureNotSupportedException();
+
+                if (!photo)
+                    await Permissions.EnsureGrantedAsync<Permissions.Microphone>();
+
+                // permission is not required on iOS 11 for the picker
+                if (!Platform.HasOSVersion(11, 0))
+                    await Permissions.EnsureGrantedAsync<Permissions.Photos>();
+
+                var picker = new UIImagePickerController();
+                picker.SourceType = sourceType;
+                picker.MediaTypes = new string[] { mediaType };
+                picker.AllowsEditing = false;
+                if (!photo && !pickExisting)
+                    picker.CameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Video;
+
+                picker.Delegate = new PhotoPickerDelegate
+                {
+                    CompletedHandler = info =>
+                        tcs.TrySetResult(DictionaryToMediaFile(info))
+                };
+
+                pickerRef = picker;
+            }
 
             if (!string.IsNullOrWhiteSpace(options?.Title))
-                picker.Title = options.Title;
+                pickerRef.Title = options.Title;
 
-            if (DeviceInfo.Idiom == DeviceIdiom.Tablet && picker.PopoverPresentationController != null && vc.View != null)
-                picker.PopoverPresentationController.SourceRect = vc.View.Bounds;
+            if (DeviceInfo.Idiom == DeviceIdiom.Tablet && pickerRef.PopoverPresentationController != null && vc.View != null)
+                pickerRef.PopoverPresentationController.SourceRect = vc.View.Bounds;
 
-            var tcs = new TaskCompletionSource<FileResult>(picker);
-            picker.Delegate = new PhotoPickerDelegate
-            {
-                CompletedHandler = info =>
-                    tcs.TrySetResult(DictionaryToMediaFile(info))
-            };
-
-            await vc.PresentViewControllerAsync(picker, true);
+            await vc.PresentViewControllerAsync(pickerRef, true);
 
             var result = await tcs.Task;
 
             await vc.DismissViewControllerAsync(true);
 
-            picker?.Dispose();
-            picker = null;
+            pickerRef?.Dispose();
+            pickerRef = null;
 
             return result;
         }
@@ -134,6 +157,11 @@ namespace Xamarin.Essentials
             return new PHAssetFileResult(assetUrl, phAsset, originalFilename);
         }
 
+        static FileResult PickerResultsToMediaFile(PHPickerResult[] results)
+        {
+            throw new NotImplementedException();
+        }
+
         class PhotoPickerDelegate : UIImagePickerControllerDelegate
         {
             public Action<NSDictionary> CompletedHandler { get; set; }
@@ -143,6 +171,14 @@ namespace Xamarin.Essentials
 
             public override void Canceled(UIImagePickerController picker) =>
                 CompletedHandler?.Invoke(null);
+        }
+
+        class PPD : PHPickerViewControllerDelegate
+        {
+            public Action<PHPickerResult[]> CompletedHandler { get; set; }
+
+            public override void DidFinishPicking(PHPickerViewController picker, PHPickerResult[] results) =>
+                CompletedHandler?.Invoke(results?.Length > 0 ? results : null);
         }
     }
 }
