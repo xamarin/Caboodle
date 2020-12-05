@@ -45,7 +45,7 @@
       </ReturnValue>
       <MemberValue>3</MemberValue>
       <Docs>
-        <summary>Get the sensor data as fast as possible (the atual rate is platform-dependent).</summary>
+        <summary>Get the sensor data as fast as possible (the actual rate is platform-dependent).</summary>
       </Docs>
     </Member>
     <Member MemberName="Game">
