@@ -1,5 +1,7 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using Tizen.Applications;
+using Tizen.System;
 
 namespace Xamarin.Essentials
 {
@@ -22,6 +24,25 @@ namespace Xamarin.Essentials
             Permissions.EnsureDeclared<Permissions.LaunchApp>();
             AppControl.SendLaunchRequest(new AppControl() { Operation = AppControlOperations.Setting });
         }
+
+        static BrightnessOverride PlatformSetBrightness(Brightness brightness)
+        {
+            var display = Display.Displays[0];
+            var oldValue = NormalizeBrightness(display);
+            display.Brightness = Math.Min((int)brightness.Value * display.MaxBrightness, display.MaxBrightness);
+            return new BrightnessOverride(new Brightness(oldValue), brightness);
+        }
+
+        static double NormalizeBrightness(Display display)
+        {
+            return (1d / display.MaxBrightness) * display.Brightness;
+        }
+
+        static bool PlatformIsBrightnessSupported() => true;
+
+        static Brightness PlatformGetBrightness() => new Brightness(Tizen.System.Display.Displays[0].Brightness);
+
+        static bool PlatformIsBrightnessOverrideActive() => false;
 
         static AppTheme PlatformRequestedTheme()
         {

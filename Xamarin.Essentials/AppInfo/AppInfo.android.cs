@@ -3,6 +3,7 @@ using Android.Content;
 using Android.Content.PM;
 using Android.Content.Res;
 using Android.Provider;
+using Android.Views;
 #if __ANDROID_29__
 using AndroidX.Core.Content.PM;
 #else
@@ -77,5 +78,28 @@ namespace Xamarin.Essentials
                 _ => AppTheme.Unspecified
             };
         }
+
+        static BrightnessOverride PlatformSetBrightness(Brightness brightness)
+        {
+            var window = Platform.GetCurrentActivity(false)?.Window;
+            if (window == null)
+                return default;
+
+            var attributes = new WindowManagerLayoutParams();
+            attributes.CopyFrom(window.Attributes);
+            attributes.ScreenBrightness = (float)brightness.Value;
+            window.Attributes = attributes;
+            return new BrightnessOverride(PlatformGetBrightness(), brightness);
+        }
+
+        static Brightness PlatformGetBrightness()
+        {
+            var currentActivity = Platform.GetCurrentActivity(false);
+            return new Brightness(currentActivity?.Window.Attributes.ScreenBrightness ?? -1d);
+        }
+
+        static bool PlatformIsBrightnessOverrideActive() => (Platform.GetCurrentActivity(false)?.Window.Attributes.ScreenBrightness ?? 0d) < 0d;
+
+        static bool PlatformIsBrightnessSupported() => true;
     }
 }

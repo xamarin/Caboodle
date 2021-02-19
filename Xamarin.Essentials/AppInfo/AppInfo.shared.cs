@@ -17,5 +17,13 @@ namespace Xamarin.Essentials
         public static void ShowSettingsUI() => PlatformShowSettingsUI();
 
         public static AppTheme RequestedTheme => PlatformRequestedTheme();
+
+        public static Brightness CurrentBrightness => PlatformGetBrightness();
+
+        public static bool IsBrightnessOverrideActive => PlatformIsBrightnessOverrideActive();
+
+        public static BrightnessOverride SetBrightness(Brightness brightness) => PlatformSetBrightness(brightness);
+
+        public static bool IsBrightnessSupported => PlatformIsBrightnessSupported();
     }
 }

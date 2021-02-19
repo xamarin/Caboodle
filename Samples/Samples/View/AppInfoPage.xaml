@@ -22,6 +22,9 @@
                 <Label Text="{Binding AppVersion, StringFormat='Version: {0}'}" />
                 <Label Text="{Binding AppBuild, StringFormat='Build: {0}'}" />
 
+                <Label Text="{Binding Brightness, StringFormat='Brightness: {0}'}" />
+                <Entry Keyboard="Numeric" Text="{Binding BrightnessString}" />
+                <Button Text="Set brightness" Command="{Binding SetBrightnessCommand}"/>
                 <Button Text="Open Settings" Command="{Binding ShowSettingsUICommand}"/>
             </StackLayout>
         </ScrollView>

@@ -81,6 +81,40 @@ namespace Xamarin.Essentials
             AppTheme.Unspecified;
 #endif
 
+#if __IOS__
+
+        static AppInfo()
+        {
+            CoreFoundation.CFNotificationCenter.Darwin.AddObserver("com.apple.springboard.lockcomplete", null, (x, y) => ResetIsActive());
+        }
+
+        static bool brightnessOverrideIsActive;
+
+        static BrightnessOverride PlatformSetBrightness(Brightness brightness)
+        {
+            var oldBrightness = PlatformGetBrightness();
+            UIScreen.MainScreen.Brightness = (float)brightness.Value;
+            brightnessOverrideIsActive = true;
+            return new BrightnessOverride(oldBrightness, brightness);
+        }
+
+        static void ResetIsActive() => brightnessOverrideIsActive = false;
+
+        static bool PlatformIsBrightnessOverrideActive() => brightnessOverrideIsActive;
+
+        static Brightness PlatformGetBrightness() => new Brightness(UIScreen.MainScreen.Brightness);
+
+        static bool PlatformIsBrightnessSupported() => true;
+#else
+        static bool PlatformIsBrightnessSupported() => false;
+
+        static BrightnessOverride PlatformSetBrightness(Brightness brightness) => throw ExceptionUtils.NotSupportedOrImplementedException;
+
+        static Brightness PlatformGetBrightness() => throw ExceptionUtils.NotSupportedOrImplementedException;
+
+        static bool PlatformIsBrightnessOverrideActive() => throw ExceptionUtils.NotSupportedOrImplementedException;
+#endif
+
         internal static bool VerifyHasUrlScheme(string scheme)
         {
             var cleansed = scheme.Replace("://", string.Empty);

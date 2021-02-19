@@ -17,9 +17,41 @@ namespace Samples.ViewModel
 
         public Command ShowSettingsUICommand { get; }
 
+        public Command SetBrightnessCommand { get; }
+
+        public string Brightness => AppInfo.CurrentBrightness.Value.ToString();
+
+        double newBrightness;
+
+        public double NewBrightness
+        {
+            get => newBrightness;
+            set
+            {
+                if (value > 1)
+                    SetProperty(ref newBrightness, 1);
+                else if (value < 0)
+                    SetProperty(ref newBrightness, 0);
+                else
+                    SetProperty(ref newBrightness, value);
+            }
+        }
+
+        public string BrightnessString
+        {
+            get => NewBrightness.ToString();
+            set
+            {
+                if (double.TryParse(value, out var result))
+                    NewBrightness = result;
+            }
+        }
+
         public AppInfoViewModel()
         {
             ShowSettingsUICommand = new Command(() => AppInfo.ShowSettingsUI());
+            SetBrightnessCommand = new Command(() => AppInfo.SetBrightness(new Brightness(NewBrightness)));
+            NewBrightness = AppInfo.CurrentBrightness.Value;
         }
     }
 }
