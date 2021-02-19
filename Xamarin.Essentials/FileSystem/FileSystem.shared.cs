@@ -212,4 +212,21 @@ namespace Xamarin.Essentials
         {
         }
     }
+
+    public class FileResultCreationException : Exception
+    {
+        public FileResultCreationException()
+        {
+        }
+
+        public FileResultCreationException(string message)
+            : base(message)
+        {
+        }
+
+        public FileResultCreationException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+        }
+    }
 }

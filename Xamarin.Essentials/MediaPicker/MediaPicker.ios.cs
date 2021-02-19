@@ -136,9 +136,10 @@ namespace Xamarin.Essentials
             if (phAsset == null || assetUrl == null)
             {
                 var img = info.ValueForKey(UIImagePickerController.OriginalImage) as UIImage;
+                var meta = info.ValueForKey(UIImagePickerController.MediaMetadata) as NSDictionary;
 
                 if (img != null)
-                    return new UIImageFileResult(img);
+                    return new UIImageFileResult(img, meta);
             }
 
             if (phAsset == null || assetUrl == null)

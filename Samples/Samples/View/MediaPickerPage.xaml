@@ -1,23 +1,36 @@
-﻿<views:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
-                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                xmlns:views="clr-namespace:Samples.View"
-                xmlns:viewmodels="clr-namespace:Samples.ViewModel"
-                x:Class="Samples.View.MediaPickerPage"
+<views:BasePage xmlns="http://xamarin.com/schemas/2014/forms" 
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                xmlns:viewmodels="clr-namespace:Samples.ViewModel" 
+                xmlns:views="clr-namespace:Samples.View" 
+                x:Class="Samples.View.MediaPickerPage" 
                 Title="Media Picker">
     <views:BasePage.BindingContext>
         <viewmodels:MediaPickerViewModel />
     </views:BasePage.BindingContext>
 
     <ScrollView>
-        <StackLayout Padding="10">
-            <Button Text="Pick photo" Command="{Binding PickPhotoCommand}" />
-            <Button Text="Capture photo" Command="{Binding CapturePhotoCommand}" />
-            <Button Text="Pick video" Command="{Binding PickVideoCommand}" />
-            <Button Text="Capture video" Command="{Binding CaptureVideoCommand}" />
+        <Grid Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="400" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-            <Image VerticalOptions="FillAndExpand" Source="{Binding PhotoPath}" IsVisible="{Binding ShowPhoto}" />
-            <MediaElement VerticalOptions="FillAndExpand" Source="{Binding VideoPath}" IsVisible="{Binding ShowVideo}" />
-        </StackLayout>
+            <Button Text="Pick photo" Command="{Binding PickPhotoCommand}" />
+            <Button Text="Capture photo" Grid.Row="1" Command="{Binding CapturePhotoCommand}" />
+            <Button Text="Pick video" Grid.Column="1" Command="{Binding PickVideoCommand}" />
+            <Button Text="Capture video" Grid.Row="1" Grid.Column="1" Command="{Binding CaptureVideoCommand}" />
+            <Image Grid.Row="2" Grid.ColumnSpan="2" Aspect="AspectFit" HorizontalOptions="FillAndExpand" IsVisible="{Binding ShowPhoto}" Source="{Binding PhotoPath}" VerticalOptions="FillAndExpand" />
+            <MediaElement Grid.Row="2" Grid.ColumnSpan="2" Aspect="AspectFit" HorizontalOptions="FillAndExpand" IsVisible="{Binding ShowVideo}" ShowsPlaybackControls="True" Source="{Binding VideoPath}" VerticalOptions="FillAndExpand" />
+            <Label Grid.Row="3" Grid.ColumnSpan="2" Margin="0,10" FontAttributes="Bold" Text="Metadata:" />
+            <Label Grid.Row="4" Grid.ColumnSpan="2" LineBreakMode="WordWrap" Text="{Binding Metadata}" />
+        </Grid>
     </ScrollView>
 
 </views:BasePage>

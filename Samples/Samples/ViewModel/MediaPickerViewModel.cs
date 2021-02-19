@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MetadataExtractor;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using Directory = MetadataExtractor.Directory;
 
 namespace Samples.ViewModel
 {
@@ -11,7 +16,7 @@ namespace Samples.ViewModel
     {
         string photoPath;
         string videoPath;
-
+        string metadata;
         bool showPhoto;
         bool showVideo;
 
@@ -31,6 +36,12 @@ namespace Samples.ViewModel
         public ICommand PickVideoCommand { get; }
 
         public ICommand CaptureVideoCommand { get; }
+
+        public string Metadata
+        {
+            get => metadata;
+            set => SetProperty(ref metadata, value);
+        }
 
         public bool ShowPhoto
         {
@@ -122,6 +133,8 @@ namespace Samples.ViewModel
 
         async Task LoadPhotoAsync(FileResult photo)
         {
+            Metadata = null;
+
             // canceled
             if (photo == null)
             {
@@ -140,10 +153,14 @@ namespace Samples.ViewModel
             PhotoPath = newFile;
             ShowVideo = false;
             ShowPhoto = true;
+
+            ShowMetadata(await photo.OpenReadAsync());
         }
 
         async Task LoadVideoAsync(FileResult video)
         {
+            Metadata = null;
+
             // canceled
             if (video == null)
             {
@@ -162,6 +179,38 @@ namespace Samples.ViewModel
             VideoPath = newFile;
             ShowVideo = true;
             ShowPhoto = false;
+
+            ShowMetadata(await video.OpenReadAsync());
+        }
+
+        void ShowMetadata(Stream stream)
+        {
+            Metadata = null;
+            try
+            {
+                var directories = ImageMetadataReader.ReadMetadata(stream);
+                var sb = new StringBuilder();
+                foreach (var directory in directories)
+                {
+                    // Each directory stores values in tags
+                    foreach (var tag in directory.Tags)
+                    {
+                        sb.AppendLine(tag.ToString());
+                    }
+
+                    // Each directory may also contain error messages
+                    foreach (var error in directory.Errors)
+                    {
+                        sb.AppendLine("ERROR: " + error);
+                    }
+                }
+
+                Metadata = sb.ToString();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
         }
 
         public override void OnDisappearing()

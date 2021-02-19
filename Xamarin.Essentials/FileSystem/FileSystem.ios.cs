@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreGraphics;
+using CoreImage;
 using Foundation;
 using Photos;
 using UIKit;
@@ -178,23 +181,79 @@ namespace Xamarin.Essentials
 
     class UIImageFileResult : FileResult
     {
-        readonly UIImage uiImage;
-        NSData data;
-
-        internal UIImageFileResult(UIImage image)
+        internal UIImageFileResult(UIImage image, NSDictionary metadata)
             : base()
         {
-            uiImage = image;
-
-            FullPath = Guid.NewGuid().ToString() + FileSystem.Extensions.Png;
-            FileName = FullPath;
+            SaveImageWithMetadata(image, metadata);
         }
 
         internal override Task<Stream> PlatformOpenReadAsync()
         {
-            data ??= uiImage.AsPNG();
+            Stream fileStream = File.OpenRead(FullPath);
 
-            return Task.FromResult(data.AsStream());
+            return Task.FromResult(fileStream);
+        }
+
+        void SaveImageWithMetadata(UIImage image, NSDictionary metadata)
+        {
+            if (image == null)
+            {
+                throw new FileResultCreationException($"{nameof(image)} cannot be null", new ArgumentNullException(nameof(image)));
+            }
+
+            if (metadata == null)
+            {
+                throw new FileResultCreationException($"{nameof(metadata)} cannot be null", new ArgumentNullException(nameof(metadata)));
+            }
+
+            var fn = Guid.NewGuid() + FileSystem.Extensions.Jpg;
+            var tempDir = NSFileManager.DefaultManager.GetTemporaryDirectory().Path;
+            var fp = Path.Combine(tempDir, fn);
+
+            try
+            {
+                var imageData = image.AsJPEG();
+
+                if (imageData == null)
+                {
+                    throw new FileResultCreationException("Could not encode UIImage into NSData.");
+                }
+
+                // Copy over meta data
+                using var ciImage = CIImage.FromData(imageData);
+                var originalColorSpace = ciImage.ColorSpace;
+                using var newImageSource = ciImage.CreateBySettingProperties(metadata);
+                using var ciContext = new CIContext();
+                var result = ciContext.WriteJpegRepresentation(newImageSource, NSUrl.FromFilename(fp), originalColorSpace ?? CGColorSpace.CreateSrgb(), new NSDictionary(), out var error);
+                if (result)
+                {
+                    FileName = fn;
+                    FullPath = fp;
+                }
+                else
+                {
+                    var msg = "Could not create final image representation.";
+                    if (error != null)
+                    {
+                        msg += $" Reason: {error.Description}";
+                    }
+                    throw new FileResultCreationException(msg);
+                }
+            }
+            catch (FileResultCreationException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"<||> {ex}");
+
+                throw new FileResultCreationException(ex.Message, ex);
+            }
+            finally
+            {
+                image.Dispose();
+            }
         }
     }
 
