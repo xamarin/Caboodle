@@ -34,6 +34,7 @@ namespace Xamarin.Essentials
 #else
                     default(float?),
 #endif
+                ReducedAccuracy = false,
                 Course = location.HasBearing ? location.Bearing : default(double?),
                 Speed = location.HasSpeed ? location.Speed : default(double?),
                 IsFromMockProvider = Platform.HasApiLevel(global::Android.OS.BuildVersionCodes.JellyBeanMr2) ? location.IsFromMockProvider : false,

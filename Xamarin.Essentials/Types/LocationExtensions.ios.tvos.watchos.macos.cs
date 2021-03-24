@@ -18,13 +18,14 @@ namespace Xamarin.Essentials
                 Longitude = placemark.Location.Coordinate.Longitude,
                 Altitude = placemark.Location.Altitude,
                 AltitudeReferenceSystem = AltitudeReferenceSystem.Geoid,
-                Timestamp = DateTimeOffset.UtcNow
+                Timestamp = DateTimeOffset.UtcNow,
+                ReducedAccuracy = false,
             };
 
         internal static IEnumerable<Location> ToLocations(this IEnumerable<CLPlacemark> placemarks) =>
             placemarks?.Select(a => a.ToLocation());
 
-        internal static Location ToLocation(this CLLocation location) =>
+        internal static Location ToLocation(this CLLocation location, bool reducedAccuracy) =>
             new Location
             {
                 Latitude = location.Coordinate.Latitude,
@@ -32,6 +33,7 @@ namespace Xamarin.Essentials
                 Altitude = location.VerticalAccuracy < 0 ? default(double?) : location.Altitude,
                 Accuracy = location.HorizontalAccuracy,
                 VerticalAccuracy = location.VerticalAccuracy,
+                ReducedAccuracy = reducedAccuracy,
                 Timestamp = location.Timestamp.ToDateTime(),
 #if __iOS__ || __WATCHOS__
                 Course = location.Course < 0 ? default(double?) : location.Course,

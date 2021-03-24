@@ -19,7 +19,14 @@ namespace Xamarin.Essentials
             var manager = new CLLocationManager();
             var location = manager.Location;
 
-            return location?.ToLocation();
+            var reducedAccuracy = false;
+#if __IOS__
+            if (UIKit.UIDevice.CurrentDevice.CheckSystemVersion(14, 0))
+            {
+                reducedAccuracy = manager.AccuracyAuthorization == CLAccuracyAuthorization.ReducedAccuracy;
+            }
+#endif
+            return location?.ToLocation(reducedAccuracy);
         }
 
         static async Task<Location> PlatformLocationAsync(GeolocationRequest request, CancellationToken cancellationToken)
@@ -51,9 +58,22 @@ namespace Xamarin.Essentials
 
             manager.StartUpdatingLocation();
 
+            var reducedAccuracy = false;
+#if __IOS__
+            if (UIKit.UIDevice.CurrentDevice.CheckSystemVersion(14, 0))
+            {
+                if (request.RequestFullAccuracy && manager.AccuracyAuthorization == CLAccuracyAuthorization.ReducedAccuracy)
+                {
+                    await manager.RequestTemporaryFullAccuracyAuthorizationAsync("XamarinEssentialsFullAccuracyUsageDescription");
+                }
+
+                reducedAccuracy = manager.AccuracyAuthorization == CLAccuracyAuthorization.ReducedAccuracy;
+            }
+#endif
+
             var clLocation = await tcs.Task;
 
-            return clLocation?.ToLocation();
+            return clLocation?.ToLocation(reducedAccuracy);
 
             void HandleLocation(CLLocation location)
             {

@@ -58,6 +58,7 @@ namespace Xamarin.Essentials
             Altitude = point.Altitude;
             Accuracy = point.Accuracy;
             VerticalAccuracy = point.VerticalAccuracy;
+            ReducedAccuracy = point.ReducedAccuracy;
             Speed = point.Speed;
             Course = point.Course;
             IsFromMockProvider = point.IsFromMockProvider;
@@ -74,6 +75,8 @@ namespace Xamarin.Essentials
         public double? Accuracy { get; set; }
 
         public double? VerticalAccuracy { get; set; }
+
+        public bool ReducedAccuracy { get; set; }
 
         public double? Speed { get; set; }
 
