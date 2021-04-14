@@ -21,7 +21,7 @@ namespace Xamarin.Essentials
 
             var reducedAccuracy = false;
 #if __IOS__
-            if (DeviceInfo.Version.Major >= 14)
+            if (Platform.HasOSVersion(14,0))
             {
                 reducedAccuracy = manager.AccuracyAuthorization == CLAccuracyAuthorization.ReducedAccuracy;
             }
@@ -60,7 +60,7 @@ namespace Xamarin.Essentials
 
             var reducedAccuracy = false;
 #if __IOS__
-            if (DeviceInfo.Version.Major >= 14)
+            if (Platform.HasOSVersion(14,0))
             {
                 if (request.RequestFullAccuracy && manager.AccuracyAuthorization == CLAccuracyAuthorization.ReducedAccuracy)
                 {
