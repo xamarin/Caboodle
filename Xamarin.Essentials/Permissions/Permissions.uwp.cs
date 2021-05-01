@@ -116,6 +116,19 @@ namespace Xamarin.Essentials
 
         public partial class LocationWhenInUse : BasePlatformPermission
         {
+            static Geolocator gl = null;
+
+            internal static void Init()
+            {
+                if (gl == null)
+                {
+                    gl = new Geolocator();
+                    gl.StatusChanged += OnStatusChanged;
+                }
+            }
+
+            public LocationWhenInUse() => Init();
+
             protected override Func<IEnumerable<string>> RequiredDeclarations => () =>
                 new[] { "location" };
 
@@ -126,6 +139,19 @@ namespace Xamarin.Essentials
             }
 
             static PermissionStatus status = PermissionStatus.Unknown;
+
+            static void OnStatusChanged(object sender, StatusChangedEventArgs e)
+            {
+                switch (e.Status)
+                {
+                    case PositionStatus.Disabled:
+                        status = PermissionStatus.Denied;
+                        break;
+                    case PositionStatus.Ready:
+                        status = PermissionStatus.Granted;
+                        break;
+                }
+            }
 
             internal static async Task<PermissionStatus> RequestLocationPermissionAsync()
             {
@@ -148,6 +174,8 @@ namespace Xamarin.Essentials
 
         public partial class LocationAlways : BasePlatformPermission
         {
+            LocationAlways() => LocationWhenInUse.Init();
+
             protected override Func<IEnumerable<string>> RequiredDeclarations => () =>
                 new[] { "location" };
 
