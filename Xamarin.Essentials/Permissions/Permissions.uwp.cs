@@ -129,7 +129,7 @@ namespace Xamarin.Essentials
 
             internal static async Task<PermissionStatus> RequestLocationPermissionAsync()
             {
-                if (status == PermissionStatus.Granted)
+                if (status == PermissionStatus.Granted || status == PermissionStatus.Denied)
                     return status;
 
                 if (!MainThread.IsMainThread)
