@@ -113,11 +113,25 @@
     <BundleResource Include="Resources\Icon-Small.png" />
     <BundleResource Include="Resources\Icon-Small%402x.png" />
     <BundleResource Include="Resources\Icon-Small%403x.png" />
-    <BundleResource Include="Resources\AppBundleFile.txt" />
     <BundleResource Include="Resources\AppBundleFile_NoExtension" />
     <BundleResource Include="Resources\Folder\AppBundleFile_Nested.txt" />
     <BundleResource Include="Resources\Icon-60.png" />
     <BundleResource Include="Resources\Icon-76%403x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\AppBundleFile.txt" />
+    <BundleResource Include="Resources\AppBundleFile_NoExtension" />
+    <BundleResource Include="Resources\Folder\AppBundleFile_Nested.txt" />
+    <BundleResource Include="Resources\AppBundleFile.txt">
+      <Link>Resources\Folder\AppBundleFile.txt</Link>
+    </BundleResource>
+    <BundleResource Include="Resources\Folder\AppBundleFile_Nested.txt">
+      <Link>Resources\Folder\SubFolder\AppBundleFile_Nested.txt</Link>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Folder\SubFolder\" />
+    <Folder Include="Resources\Folder\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

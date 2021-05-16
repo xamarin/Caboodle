@@ -15,6 +15,12 @@
         <Label Text="{Binding CacheDirectory, StringFormat='Cache: {0}'}" />
         <Label Text="{Binding AppDataDirectory, StringFormat='App Data: {0}'}" />
 
+        <Label Text="Package Directories:" FontAttributes="Bold" Margin="0,6,0,0" />
+        <ListView ItemsSource="{Binding AppPackageDirectories}"/>
+
+        <Label Text="Package Files:" FontAttributes="Bold" Margin="0,6,0,0" />
+        <ListView ItemsSource="{Binding AppPackageFiles}"/>
+
         <Label Text="Operations:" FontAttributes="Bold" Margin="0,6,0,0" />
         <StackLayout Orientation="Horizontal" Spacing="6">
             <Button Text="Load" Command="{Binding LoadFileCommand}" HorizontalOptions="FillAndExpand" />

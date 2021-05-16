@@ -122,6 +122,22 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\FileSystemTemplate.txt" />
+    <AndroidAsset Include="Assets\FileSystemTemplate.txt">
+      <Link>Assets\Folder\FileSystemTemplate.txt</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\FileSystemTemplate.txt">
+      <Link>Assets\Folder\FileSystemTemplate1.txt</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\FileSystemTemplate.txt">
+      <Link>Assets\Folder\FileSystemTemplate2.txt</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\FileSystemTemplate.txt">
+      <Link>Assets\Folder\SubFolder\FileSystemTemplate.txt</Link>
+    </AndroidAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Folder\" />
+    <Folder Include="Assets\Folder\SubFolder\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

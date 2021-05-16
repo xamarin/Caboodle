@@ -15,6 +15,12 @@ namespace Xamarin.Essentials
         public static Task<Stream> OpenAppPackageFileAsync(string filename)
             => PlatformOpenAppPackageFileAsync(filename);
 
+        public static string[] GetAppPackageDirectories(string path)
+            => PlatformGetAppPackageDirectories(path);
+
+        public static string[] GetAppPackageFiles(string path)
+            => PlatformGetAppPackageFiles(path);
+
         internal static class MimeTypes
         {
             internal const string All = "*/*";

@@ -161,7 +161,6 @@
   <ItemGroup>
     <Content Include="Assets\app_info_action_icon.png" />
     <Content Include="Assets\battery_action_icon.png" />
-    <Content Include="FileSystemTemplate.txt" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-100.png" />
     <Content Include="Assets\LockScreenLogo.scale-125.png" />
@@ -195,6 +194,25 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
     <Content Include="Properties\Default.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FileSystemTemplate.txt" />
+    <Content Include="FileSystemTemplate.txt">
+      <Link>Folder\FileSystemTemplate.txt</Link>
+    </Content>
+    <Content Include="FileSystemTemplate.txt">
+      <Link>Folder\FileSystemTemplate1.txt</Link>
+    </Content>
+    <Content Include="FileSystemTemplate.txt">
+      <Link>Folder\FileSystemTemplate2.txt</Link>
+    </Content>
+    <Content Include="FileSystemTemplate.txt">
+      <Link>Folder\SubFolder\FileSystemTemplate.txt</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Folder\" />
+    <Folder Include="Folder\SubFolder\" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="WindowsMobile, Version=10.0.18362.0">

@@ -46,5 +46,21 @@ namespace DeviceTests
         {
             await Assert.ThrowsAsync<FileNotFoundException>(() => FileSystem.OpenAppPackageFileAsync("MissingFile.txt"));
         }
+
+        [Theory]
+        [InlineData("Folder")]
+        public void AppResourceDirectories_Is_Valid(string path)
+        {
+            var directories = FileSystem.GetAppPackageDirectories(path);
+            Assert.True(directories != null);
+        }
+
+        [Theory]
+        [InlineData("Folder")]
+        public void AppResourceFiles_Is_Valid(string path)
+        {
+            var files = FileSystem.GetAppPackageFiles(path);
+            Assert.True(files != null);
+        }
     }
 }

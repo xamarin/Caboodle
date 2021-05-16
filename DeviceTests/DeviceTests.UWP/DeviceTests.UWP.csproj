@@ -153,9 +153,6 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AppBundleFile.txt" />
-    <Content Include="Folder\AppBundleFile_Nested.txt" />
-    <Content Include="AppBundleFile_NoExtension" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-100.png" />
     <Content Include="Assets\LockScreenLogo.scale-125.png" />
@@ -188,6 +185,21 @@
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppBundleFile.txt" />
+    <Content Include="AppBundleFile_NoExtension" />
+    <Content Include="Folder\AppBundleFile_Nested.txt" />
+    <Content Include="AppBundleFile.txt">
+      <Link>Folder\AppBundleFile.txt</Link>
+    </Content>
+    <Content Include="Folder\AppBundleFile_Nested.txt">
+      <Link>Folder\SubFolder\AppBundleFile_Nested.txt</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Folder\SubFolder\" />
+    <Folder Include="Folder\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DeviceTests.UWP_TemporaryKey.pfx" />

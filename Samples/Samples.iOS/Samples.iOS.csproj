@@ -104,6 +104,22 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\FileSystemTemplate.txt" />
+    <BundleResource Include="Resources\FileSystemTemplate.txt">
+      <Link>Resources\Folder\FileSystemTemplate.txt</Link>
+    </BundleResource>
+    <BundleResource Include="Resources\FileSystemTemplate.txt">
+      <Link>Resources\Folder\FileSystemTemplate1.txt</Link>
+    </BundleResource>
+    <BundleResource Include="Resources\FileSystemTemplate.txt">
+      <Link>Resources\Folder\FileSystemTemplate2.txt</Link>
+    </BundleResource>
+    <BundleResource Include="Resources\FileSystemTemplate.txt">
+      <Link>Resources\Folder\SubFolder\FileSystemTemplate.txt</Link>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Folder\" />
+    <Folder Include="Resources\Folder\SubFolder\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

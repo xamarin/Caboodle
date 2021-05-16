@@ -84,9 +84,6 @@
     <None Include="Entitlements.plist" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="Main.storyboard" />
-  </ItemGroup>
-  <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-128.png" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-128%402x.png" />
@@ -102,6 +99,22 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\FileSystemTemplate.txt" />
+    <BundleResource Include="Resources\FileSystemTemplate.txt">
+      <Link>Resources\Folder\FileSystemTemplate.txt</Link>
+    </BundleResource>
+    <BundleResource Include="Resources\FileSystemTemplate.txt">
+      <Link>Resources\Folder\FileSystemTemplate1.txt</Link>
+    </BundleResource>
+    <BundleResource Include="Resources\FileSystemTemplate.txt">
+      <Link>Resources\Folder\FileSystemTemplate2.txt</Link>
+    </BundleResource>
+    <BundleResource Include="Resources\FileSystemTemplate.txt">
+      <Link>Resources\Folder\SubFolder\FileSystemTemplate.txt</Link>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Folder\" />
+    <Folder Include="Resources\Folder\SubFolder\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
 </Project>

@@ -15,10 +15,28 @@
     <ProjectReference Include="..\..\Xamarin.Essentials\Xamarin.Essentials.csproj" />
     <ProjectReference Include="..\Samples\Samples.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="res\FileSystemTemplate.txt" />
+    <None Include="res\FileSystemTemplate.txt">
+      <Link>res\Folder\FileSystemTemplate.txt</Link>
+    </None>
+    <None Include="res\FileSystemTemplate.txt">
+      <Link>res\Folder\FileSystemTemplate1.txt</Link>
+    </None>
+    <None Include="res\FileSystemTemplate.txt">
+      <Link>res\Folder\FileSystemTemplate2.txt</Link>
+    </None>
+    <None Include="res\FileSystemTemplate.txt">
+      <Link>res\Folder\SubFolder\FileSystemTemplate.txt</Link>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="lib\" />
     <Folder Include="res\" />
+    <Folder Include="res\Folder\" />
+    <Folder Include="res\Folder\SubFolder\" />
   </ItemGroup>
 
   <ItemGroup>

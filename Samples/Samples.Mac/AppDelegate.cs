@@ -26,6 +26,22 @@ namespace Samples.Mac
                 Title = "Xamarin.Essentials",
                 TitleVisibility = NSWindowTitleVisibility.Hidden,
             };
+
+            // Add Quit shortcut
+            var appMenubar = new NSMenu();
+            var appMenuItem = new NSMenuItem();
+            appMenubar.AddItem(appMenuItem);
+
+            var appMenu = new NSMenu();
+            appMenuItem.Submenu = appMenu;
+
+            var quitMenuItem = new NSMenuItem("Quit", "q", delegate
+                {
+                    NSApplication.SharedApplication.Terminate(appMenubar);
+                });
+            appMenu.AddItem(quitMenuItem);
+
+            NSApplication.SharedApplication.MainMenu = appMenubar;
         }
 
         public override NSWindow MainWindow => window;

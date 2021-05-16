@@ -120,6 +120,16 @@
     <AndroidAsset Include="Assets\AppBundleFile.txt" />
     <AndroidAsset Include="Assets\AppBundleFile_NoExtension" />
     <AndroidAsset Include="Assets\Folder\AppBundleFile_Nested.txt" />
+    <AndroidAsset Include="Assets\AppBundleFile.txt">
+      <Link>Assets\Folder\AppBundleFile.txt</Link>
+    </AndroidAsset>
+    <AndroidAsset Include="Assets\Folder\AppBundleFile_Nested.txt">
+      <Link>Assets\Folder\SubFolder\AppBundleFile_Nested.txt</Link>
+    </AndroidAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Folder\SubFolder\" />
+    <Folder Include="Assets\Folder\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

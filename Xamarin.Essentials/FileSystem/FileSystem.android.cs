@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Android.Provider;
 using Android.Webkit;
@@ -51,6 +52,30 @@ namespace Xamarin.Essentials
             {
                 throw new FileNotFoundException(ex.Message, filename, ex);
             }
+        }
+
+        // Android does't have the concept for returning Directories (AFICT).
+        // As such, we only return string with no . in them. Not ideal but
+        // should work in most cases as Folders rarely contain dots
+        static string[] PlatformGetAppPackageDirectories(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentNullException(nameof(path));
+
+            return Platform.AppContext.Assets.List(path)
+                .Where(file => !file.Contains("."))
+                .Select(x => Path.Combine(path, x)).ToArray();
+        }
+
+        // This may also return Directories, but we can't restrict the list,
+        // as some files may not have an extention. So user is on their own from here.
+        static string[] PlatformGetAppPackageFiles(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentNullException(nameof(path));
+
+            return Platform.AppContext.Assets.List(path)
+                .Select(x => Path.Combine(path, x)).ToArray();
         }
 
         internal static Java.IO.File GetEssentialsTemporaryFile(Java.IO.File root, string fileName)
