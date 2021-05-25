@@ -186,9 +186,9 @@ namespace Xamarin.Essentials
                         }
 
                         del.AuthorizationStatusChanged -= LocationAuthCallback;
-                        tcs.TrySetResult(GetLocationStatus(whenInUse));
                         locationManager?.Dispose();
                         locationManager = null;
+                        tcs.TrySetResult(GetLocationStatus(whenInUse));
                     }
                     catch (Exception ex)
                     {
