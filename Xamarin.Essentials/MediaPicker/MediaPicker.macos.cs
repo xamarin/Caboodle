@@ -13,8 +13,11 @@ namespace Xamarin.Essentials
         static async Task<FileResult> PlatformPickPhotoAsync(MediaPickerOptions options)
             => new FileResult(await FilePicker.PickAsync(new PickOptions
             {
-                 FileTypes = FilePickerFileType.Images
+                FileTypes = FilePickerFileType.Images
             }));
+
+        static async Task<IEnumerable<FileResult>> PlatformPickPhotosAsync(MediaPickerOptions options, MultiPickerOptions pickerOptions = null)
+            => await Task.FromResult(new List<FileResult>());
 
         static Task<FileResult> PlatformCapturePhotoAsync(MediaPickerOptions options)
             => PlatformPickPhotoAsync(options);

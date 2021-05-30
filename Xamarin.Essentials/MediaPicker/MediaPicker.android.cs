@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Android.Content;
 using Android.Content.PM;
@@ -14,6 +15,9 @@ namespace Xamarin.Essentials
 
         static Task<FileResult> PlatformPickPhotoAsync(MediaPickerOptions options)
             => PlatformPickAsync(options, true);
+
+        static Task<IEnumerable<FileResult>> PlatformPickPhotosAsync(MediaPickerOptions options, MultiPickerOptions pickerOptions = null)
+            => PlatformPicksAsync(options, pickerOptions);
 
         static Task<FileResult> PlatformPickVideoAsync(MediaPickerOptions options)
             => PlatformPickAsync(options, false);
@@ -105,5 +109,8 @@ namespace Xamarin.Essentials
                 return null;
             }
         }
+
+        static async Task<IEnumerable<FileResult>> PlatformPicksAsync(MediaPickerOptions options, MultiPickerOptions pickerOptions)
+            => await Task.FromResult(new List<FileResult>());
     }
 }

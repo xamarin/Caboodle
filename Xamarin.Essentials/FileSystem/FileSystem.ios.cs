@@ -171,8 +171,24 @@ namespace Xamarin.Essentials
         internal override Task<Stream> PlatformOpenReadAsync()
         {
             Stream fileStream = File.OpenRead(FullPath);
-
             return Task.FromResult(fileStream);
+        }
+    }
+
+    class NSUrlFileResult : FileResult
+    {
+        NSData data;
+
+        internal NSUrlFileResult(NSUrl url)
+        {
+            data = NSData.FromUrl(url);
+            FullPath = url.AbsoluteString;
+            FileName = Path.GetFileName(FullPath);
+        }
+
+        internal override Task<Stream> PlatformOpenReadAsync()
+        {
+            return Task.FromResult(data.AsStream());
         }
     }
 

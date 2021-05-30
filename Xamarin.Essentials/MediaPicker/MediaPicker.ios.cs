@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Foundation;
 using MobileCoreServices;
 using Photos;
+using PhotosUI;
 using UIKit;
 
 namespace Xamarin.Essentials
@@ -18,6 +21,9 @@ namespace Xamarin.Essentials
         static Task<FileResult> PlatformPickPhotoAsync(MediaPickerOptions options)
             => PhotoAsync(options, true, true);
 
+        static Task<IEnumerable<FileResult>> PlatformPickPhotosAsync(MediaPickerOptions options, MultiPickerOptions pickerOptions)
+            => PhotosAsync(options, pickerOptions);
+
         static Task<FileResult> PlatformCapturePhotoAsync(MediaPickerOptions options)
             => PhotoAsync(options, true, false);
 
@@ -27,7 +33,7 @@ namespace Xamarin.Essentials
         static Task<FileResult> PlatformCaptureVideoAsync(MediaPickerOptions options)
             => PhotoAsync(options, false, false);
 
-        static async Task<FileResult> PhotoAsync(MediaPickerOptions options, bool photo, bool pickExisting)
+        static async Task<FileResult> PhotoAsync(MediaPickerOptions options, bool photo, bool pickExisting, bool multi = false)
         {
             var sourceType = pickExisting ? UIImagePickerControllerSourceType.PhotoLibrary : UIImagePickerControllerSourceType.Camera;
             var mediaType = photo ? UTType.Image : UTType.Movie;
@@ -53,6 +59,7 @@ namespace Xamarin.Essentials
             picker.SourceType = sourceType;
             picker.MediaTypes = new string[] { mediaType };
             picker.AllowsEditing = false;
+
             if (!photo && !pickExisting)
                 picker.CameraCaptureMode = UIImagePickerControllerCameraCaptureMode.Video;
 
@@ -92,7 +99,7 @@ namespace Xamarin.Essentials
         {
             try
             {
-                tcs.TrySetResult(DictionaryToMediaFile(info));
+                tcs.TrySetResult(DictionaryToFileResult(info));
             }
             catch (Exception ex)
             {
@@ -100,7 +107,7 @@ namespace Xamarin.Essentials
             }
         }
 
-        static FileResult DictionaryToMediaFile(NSDictionary info)
+        static FileResult DictionaryToFileResult(NSDictionary info)
         {
             if (info == null)
                 return null;
@@ -171,6 +178,76 @@ namespace Xamarin.Essentials
 
             public override void DidDismiss(UIPresentationController presentationController) =>
                 CompletedHandler?.Invoke(null);
+        }
+
+        static async Task<IEnumerable<FileResult>> PhotosAsync(MediaPickerOptions options, MultiPickerOptions pickerOptions)
+        {
+            var config = new PHPickerConfiguration
+            {
+                SelectionLimit = 3,
+                Filter = PHPickerFilter.ImagesFilter
+            };
+
+            var picker = new PHPickerViewController(config);
+
+            if (!string.IsNullOrWhiteSpace(options?.Title))
+                picker.Title = options.Title;
+
+            var tcs = new TaskCompletionSource<IEnumerable<FileResult>>(picker);
+
+            picker.Delegate = new PhotosPickerDelegate()
+            {
+                CompletedHandler = results => GetFileResults(results, tcs)
+            };
+
+            var vc = Platform.GetCurrentViewController(true);
+
+            await vc.PresentViewControllerAsync(picker, true);
+
+            var result = await tcs.Task;
+
+            await vc.DismissViewControllerAsync(true);
+
+            picker?.Dispose();
+            picker = null;
+
+            return result;
+        }
+
+        static void GetFileResults(PHPickerResult[] results, TaskCompletionSource<IEnumerable<FileResult>> tcs)
+        {
+            try
+            {
+                var fileResults = new List<FileResult>();
+                foreach (var result in results)
+                {
+                    foreach (var registeredItemType in result.ItemProvider.RegisteredTypeIdentifiers)
+                    {
+                        result.ItemProvider.LoadFileRepresentation(registeredItemType, (url, error) =>
+                        {
+                            if (error != null || url == null)
+                                return;
+
+                            FileResult fileResult = new NSUrlFileResult(url);
+                            var taskCompletionSource = new TaskCompletionSource<FileResult>();
+                            taskCompletionSource.SetResult(fileResult);
+                            fileResults.Add(taskCompletionSource.Task.Result);
+                        });
+                    }
+                }
+                tcs.TrySetResult(fileResults);
+            }
+            catch (Exception ex)
+            {
+                tcs.TrySetException(ex);
+            }
+        }
+
+        class PhotosPickerDelegate : PHPickerViewControllerDelegate
+        {
+            public Action<PHPickerResult[]> CompletedHandler { get; set; }
+
+            public override void DidFinishPicking(PHPickerViewController picker, PHPickerResult[] results) => CompletedHandler?.Invoke(results);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Xamarin.Essentials
@@ -11,6 +10,9 @@ namespace Xamarin.Essentials
 
         public static Task<FileResult> PickPhotoAsync(MediaPickerOptions options = null) =>
             PlatformPickPhotoAsync(options);
+
+        public static Task<IEnumerable<FileResult>> PickPhotosAsync(MediaPickerOptions options = null, MultiPickerOptions pickerOptions = null) =>
+            PlatformPickPhotosAsync(options, pickerOptions);
 
         public static Task<FileResult> CapturePhotoAsync(MediaPickerOptions options = null)
         {
@@ -35,5 +37,9 @@ namespace Xamarin.Essentials
     public class MediaPickerOptions
     {
         public string Title { get; set; }
+    }
+
+    public class MultiPickerOptions
+    {
     }
 }

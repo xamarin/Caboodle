@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Media.Capture;
 using Windows.Storage.Pickers;
+using System.Collections.Generic;
 
 namespace Xamarin.Essentials
 {
@@ -13,6 +14,9 @@ namespace Xamarin.Essentials
 
         static Task<FileResult> PlatformPickPhotoAsync(MediaPickerOptions options)
             => PickAsync(options, true);
+
+        static async Task<IEnumerable<FileResult>> PlatformPickPhotosAsync(MediaPickerOptions options, MultiPickerOptions pickerOptions = null)
+            => await Task.FromResult(new List<FileResult>());
 
         static Task<FileResult> PlatformPickVideoAsync(MediaPickerOptions options)
             => PickAsync(options, false);

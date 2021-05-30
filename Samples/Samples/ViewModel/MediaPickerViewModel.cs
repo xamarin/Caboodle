@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -18,6 +19,7 @@ namespace Samples.ViewModel
         public MediaPickerViewModel()
         {
             PickPhotoCommand = new Command(DoPickPhoto);
+            PickPhotosCommand = new Command(DoPickPhotos);
             CapturePhotoCommand = new Command(DoCapturePhoto, () => MediaPicker.IsCaptureSupported);
 
             PickVideoCommand = new Command(DoPickVideo);
@@ -25,6 +27,8 @@ namespace Samples.ViewModel
         }
 
         public ICommand PickPhotoCommand { get; }
+
+        public ICommand PickPhotosCommand { get; }
 
         public ICommand CapturePhotoCommand { get; }
 
@@ -69,6 +73,23 @@ namespace Samples.ViewModel
             catch (Exception ex)
             {
                 Console.WriteLine($"PickPhotoAsync THREW: {ex.Message}");
+            }
+        }
+
+        async void DoPickPhotos()
+        {
+            try
+            {
+                var photos = await MediaPicker.PickPhotosAsync();
+                var photo = photos.FirstOrDefault();
+
+                await LoadPhotoAsync(photo);
+
+                Console.WriteLine($"PickPhotosAsync COMPLETED: {PhotoPath}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"PickPhotosAsync THREW: {ex.Message}");
             }
         }
 

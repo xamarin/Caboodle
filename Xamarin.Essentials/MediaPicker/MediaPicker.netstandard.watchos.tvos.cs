@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Xamarin.Essentials
@@ -10,6 +9,9 @@ namespace Xamarin.Essentials
             throw new NotImplementedInReferenceAssemblyException();
 
         static Task<FileResult> PlatformPickPhotoAsync(MediaPickerOptions options) =>
+            throw new NotImplementedInReferenceAssemblyException();
+
+        static Task<IEnumerable<FileResult>> PlatformPickPhotosAsync(MediaPickerOptions options, MultiPickerOptions pickerOptions) =>
             throw new NotImplementedInReferenceAssemblyException();
 
         static Task<FileResult> PlatformCapturePhotoAsync(MediaPickerOptions options) =>
