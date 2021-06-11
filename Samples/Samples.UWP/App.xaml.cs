@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -31,6 +30,7 @@ namespace Samples.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e);
+                WebAuthenticator.UseBrowser = true;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
@@ -67,6 +67,17 @@ namespace Samples.UWP
             // TODO: Save application state and stop any background activity
 
             deferral.Complete();
+        }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.Protocol && WebAuthenticator.BrowserAuthenticationTaskCompletionSource != null)
+            {
+                var protocolArgs = args as ProtocolActivatedEventArgs;
+                var url = new Uri(protocolArgs.Uri.AbsoluteUri);
+                var authenticationResult = new WebAuthenticatorResult(url);
+                WebAuthenticator.BrowserAuthenticationTaskCompletionSource.SetResult(authenticationResult);
+            }
         }
     }
 }

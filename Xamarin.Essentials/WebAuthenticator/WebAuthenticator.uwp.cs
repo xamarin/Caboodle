@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -14,6 +13,10 @@ namespace Xamarin.Essentials
 {
     public static partial class WebAuthenticator
     {
+        public static bool UseBrowser { get; set; }
+
+        public static TaskCompletionSource<WebAuthenticatorResult> BrowserAuthenticationTaskCompletionSource { get; set; }
+
         static async Task<WebAuthenticatorResult> PlatformAuthenticateAsync(Uri url, Uri callbackUrl)
         {
             if (!IsUriProtocolDeclared(callbackUrl.Scheme))
@@ -21,26 +24,43 @@ namespace Xamarin.Essentials
 
             try
             {
-                var r = await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, url, callbackUrl);
-
-                switch (r.ResponseStatus)
+                if (UseBrowser)
                 {
-                    case WebAuthenticationStatus.Success:
-                        // For GET requests this is a URI:
-                        var resultUri = new Uri(r.ResponseData.ToString());
-                        return new WebAuthenticatorResult(resultUri);
-                    case WebAuthenticationStatus.UserCancel:
-                        throw new TaskCanceledException();
-                    case WebAuthenticationStatus.ErrorHttp:
-                        throw new HttpRequestException("Error: " + r.ResponseErrorDetail);
-                    default:
-                        throw new Exception("Response: " + r.ResponseData.ToString() + "\nStatus: " + r.ResponseStatus);
+                    return await BrowserAuthenticateAsync(url, callbackUrl);
+                }
+                else
+                {
+                    var r = await WebAuthenticationBroker.AuthenticateAsync(WebAuthenticationOptions.None, url, callbackUrl);
+
+                    switch (r.ResponseStatus)
+                    {
+                        case WebAuthenticationStatus.Success:
+                            // For GET requests this is a URI:
+                            var resultUri = new Uri(r.ResponseData.ToString());
+                            return new WebAuthenticatorResult(resultUri);
+                        case WebAuthenticationStatus.UserCancel:
+                            throw new TaskCanceledException();
+                        case WebAuthenticationStatus.ErrorHttp:
+                            throw new HttpRequestException("Error: " + r.ResponseErrorDetail);
+                        default:
+                            throw new Exception("Response: " + r.ResponseData.ToString() + "\nStatus: " + r.ResponseStatus);
+                    }
                 }
             }
             catch (FileNotFoundException)
             {
                 throw new TaskCanceledException();
             }
+        }
+
+        static Task<WebAuthenticatorResult> BrowserAuthenticateAsync(Uri url, Uri callbackUrl)
+        {
+            BrowserAuthenticationTaskCompletionSource = new TaskCompletionSource<WebAuthenticatorResult>();
+            var urlParts = HttpUtility.ParseQueryString(url.ToString());
+            urlParts.Set("redirect_uri", HttpUtility.UrlEncode(callbackUrl.ToString()));
+            var uriWithCallBack = new Uri(urlParts.ToString());
+            Launcher.OpenAsync(uriWithCallBack);
+            return BrowserAuthenticationTaskCompletionSource.Task;
         }
 
         static bool IsUriProtocolDeclared(string scheme)
