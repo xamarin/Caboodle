@@ -49,6 +49,7 @@
       "uhfHeaderId": "MSDocsHeader-DotNet",
       "ms.topic": "managed-reference",
       "ms.prod": "xamarin",
+      "products": ["https://authoring-docs-microsoft.poolparty.biz/devrel/f0c462af-0ef9-4821-b36f-ba3d94736e2b"],
       "ms.technology":"xamarin-essentials",
       "feedback_system": "GitHub",      
       "feedback_product_url": "https://github.com/xamarin/Essentials/blob/main/PRODUCT-FEEDBACK.md"
