@@ -15,6 +15,9 @@
         Granted = 3,
 
         // Restricted (only iOS)
-        Restricted = 4
+        Restricted = 4,
+
+        // Limited (only iOS)
+        Limited = 5
     }
 }

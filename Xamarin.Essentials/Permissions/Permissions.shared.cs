@@ -109,6 +109,10 @@ namespace Xamarin.Essentials
         {
         }
 
+        public partial class PhotosAddOnly
+        {
+        }
+
         public partial class Reminders
         {
         }

@@ -102,7 +102,7 @@
           <AttributeName>System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/xamarin/Essentials")</AttributeName>
         </Attribute>
         <Attribute>
-          <AttributeName>System.Reflection.AssemblyInformationalVersion("1.0.0+2fb7c9ee75e244e990677fa4ef85bbfd730a97e7")</AttributeName>
+          <AttributeName>System.Reflection.AssemblyInformationalVersion("1.0.0+07e9e3a57be12c034de1381a51ade0032a691fdc")</AttributeName>
         </Attribute>
       </Attributes>
     </Assembly>
@@ -225,6 +225,7 @@
       <Type Name="Permissions+NetworkState" Kind="Class" />
       <Type Name="Permissions+Phone" Kind="Class" />
       <Type Name="Permissions+Photos" Kind="Class" />
+      <Type Name="Permissions+PhotosAddOnly" Kind="Class" />
       <Type Name="Permissions+Reminders" Kind="Class" />
       <Type Name="Permissions+Sensors" Kind="Class" />
       <Type Name="Permissions+Sms" Kind="Class" />

@@ -19,6 +19,12 @@ namespace Xamarin.Essentials
 
             return window;
         }
+
+        internal static bool HasOSVersion(int major, int minor)
+        {
+            using var info = new NSProcessInfo();
+            return info.IsOperatingSystemAtLeastVersion(new NSOperatingSystemVersion(major, minor, 0));
+        }
     }
 
     internal static class CoreGraphicsInterop
