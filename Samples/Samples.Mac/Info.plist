@@ -45,5 +45,7 @@
 	</array>
 	<key>NSContactsUsageDescription</key>
 	<string>Contacts</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photos</string>
 </dict>
 </plist>

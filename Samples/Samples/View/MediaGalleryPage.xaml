@@ -1,0 +1,63 @@
+﻿<views:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                xmlns:views="clr-namespace:Samples.View"
+                xmlns:viewmodels="clr-namespace:Samples.ViewModel"
+                x:Class="Samples.View.MediaGalleryPage"
+                x:DataType="viewmodels:MediaGalleryViewModel"
+                Title="Media Gallery">
+
+    <views:BasePage.BindingContext>
+        <viewmodels:MediaGalleryViewModel />
+    </views:BasePage.BindingContext>
+
+    <ScrollView>
+        <Grid RowSpacing="20" Padding="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="400"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Text="Save To Gallery From:"
+                   HorizontalTextAlignment="Center" FontAttributes="Bold" Margin="0"/>
+
+            <StackLayout Grid.Row="1" Orientation="Vertical" Margin="0" Padding="0" Spacing="8">
+                <RadioButton Text="Stream" IsChecked="{Binding FromStream}" Margin="0"/>
+                <RadioButton Text="ByteArray"  IsChecked="{Binding FromByteArray}" Margin="0"/>
+                <RadioButton Text="CacheDirectory"  IsChecked="{Binding FromCacheDirectory}" Margin="0"/>
+            </StackLayout>
+
+            <Grid Grid.Row="2" ColumnSpacing="8" RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Row="0" Grid.Column="0" Source="{Binding PngSource}"/>
+                <Button Grid.Row="1" Grid.Column="0" Text="Png" Command="{Binding SavevPngCommand}"/>
+
+                <Image Grid.Row="0" Grid.Column="1" Source="{Binding JpgSource}"/>
+                <Button Grid.Row="1" Grid.Column="1" Text="Jpg" Command="{Binding SaveJpgCommand}"/>
+
+
+                <Image Grid.Row="2" Grid.Column="0" Source="{Binding GifSource}"/>
+                <Button Grid.Row="3" Grid.Column="0" Text="Gif" Command="{Binding SaveGifCommand}"/>
+
+                <Label Grid.Row="2" Grid.Column="1" Text="Imagine a video of Earth here"
+                       HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+                <Button Grid.Row="3" Grid.Column="1" Text="Video" Command="{Binding SaveVideoCommand}"/>
+            </Grid>
+
+            <Label Grid.Row="3" Text="Other features in the future"
+                   HorizontalTextAlignment="Center" FontAttributes="Bold"/>
+        </Grid>
+    </ScrollView>
+</views:BasePage>

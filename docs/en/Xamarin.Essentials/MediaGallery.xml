@@ -1,0 +1,95 @@
+<Type Name="MediaGallery" FullName="Xamarin.Essentials.MediaGallery">
+  <TypeSignature Language="C#" Value="public static class MediaGallery" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit MediaGallery extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Essentials.MediaGallery" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Essentials</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>Class for accessing the device's native gallery.</summary>
+    <remarks></remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="SaveAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task SaveAsync (Xamarin.Essentials.MediaFileType type, string filePath);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task SaveAsync(valuetype Xamarin.Essentials.MediaFileType type, string filePath) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.MediaGallery.SaveAsync(Xamarin.Essentials.MediaFileType,System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="type" Type="Xamarin.Essentials.MediaFileType" />
+        <Parameter Name="filePath" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="type">Type of media file to save.</param>
+        <param name="filePath">Physical path to the file.</param>
+        <summary>Saves media files to the device's gallery</summary>
+        <returns></returns>
+        <remarks></remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SaveAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task SaveAsync (Xamarin.Essentials.MediaFileType type, byte[] data, string fileName);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task SaveAsync(valuetype Xamarin.Essentials.MediaFileType type, unsigned int8[] data, string fileName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.MediaGallery.SaveAsync(Xamarin.Essentials.MediaFileType,System.Byte[],System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="type" Type="Xamarin.Essentials.MediaFileType" />
+        <Parameter Name="data" Type="System.Byte[]" />
+        <Parameter Name="fileName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="type">Type of media file to save.</param>
+        <param name="data">Bytes to save to the file.</param>
+        <param name="fileName">Name of the file with extension</param>
+        <summary>Saves media files to the device's gallery</summary>
+        <returns></returns>
+        <remarks></remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SaveAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task SaveAsync (Xamarin.Essentials.MediaFileType type, System.IO.Stream fileStream, string fileName);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task SaveAsync(valuetype Xamarin.Essentials.MediaFileType type, class System.IO.Stream fileStream, string fileName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.MediaGallery.SaveAsync(Xamarin.Essentials.MediaFileType,System.IO.Stream,System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="type" Type="Xamarin.Essentials.MediaFileType" />
+        <Parameter Name="fileStream" Type="System.IO.Stream" />
+        <Parameter Name="fileName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="type">Type of media file to save.</param>
+        <param name="fileStream">Stream to save to the file.</param>
+        <param name="fileName">Name of the file with extension</param>
+        <summary>Saves media files to the device's gallery</summary>
+        <returns></returns>
+        <remarks></remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

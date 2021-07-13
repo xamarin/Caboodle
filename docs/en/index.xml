@@ -195,6 +195,8 @@
       <Type Name="MainThread" Kind="Class" />
       <Type Name="Map" Kind="Class" />
       <Type Name="MapLaunchOptions" Kind="Class" />
+      <Type Name="MediaFileType" Kind="Enumeration" />
+      <Type Name="MediaGallery" Kind="Class" />
       <Type Name="MediaPicker" Kind="Class" />
       <Type Name="MediaPickerOptions" Kind="Class" />
       <Type Name="NavigationMode" Kind="Enumeration" />

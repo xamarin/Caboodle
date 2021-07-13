@@ -563,6 +563,15 @@
       <Member Id="P:Xamarin.Essentials.MapLaunchOptions.Name" />
       <Member Id="P:Xamarin.Essentials.MapLaunchOptions.NavigationMode" />
     </Type>
+    <Type Name="Xamarin.Essentials.MediaFileType" Id="T:Xamarin.Essentials.MediaFileType">
+      <Member Id="F:Xamarin.Essentials.MediaFileType.Image" />
+      <Member Id="F:Xamarin.Essentials.MediaFileType.Video" />
+    </Type>
+    <Type Name="Xamarin.Essentials.MediaGallery" Id="T:Xamarin.Essentials.MediaGallery">
+      <Member Id="M:Xamarin.Essentials.MediaGallery.SaveAsync(Xamarin.Essentials.MediaFileType,System.Byte[],System.String)" />
+      <Member Id="M:Xamarin.Essentials.MediaGallery.SaveAsync(Xamarin.Essentials.MediaFileType,System.IO.Stream,System.String)" />
+      <Member Id="M:Xamarin.Essentials.MediaGallery.SaveAsync(Xamarin.Essentials.MediaFileType,System.String)" />
+    </Type>
     <Type Name="Xamarin.Essentials.MediaPicker" Id="T:Xamarin.Essentials.MediaPicker">
       <Member Id="M:Xamarin.Essentials.MediaPicker.CapturePhotoAsync(Xamarin.Essentials.MediaPickerOptions)" />
       <Member Id="M:Xamarin.Essentials.MediaPicker.CaptureVideoAsync(Xamarin.Essentials.MediaPickerOptions)" />

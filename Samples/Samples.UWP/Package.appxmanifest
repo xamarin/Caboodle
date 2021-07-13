@@ -32,6 +32,8 @@
   <Capabilities>
     <Capability Name="internetClient" />
     <uap:Capability Name="contacts"/>
+    <uap:Capability Name="picturesLibrary"/>
+    <uap:Capability Name="videosLibrary"/>
     <DeviceCapability Name="location" />
     <DeviceCapability Name="microphone"/>
     <DeviceCapability Name="webcam"/>

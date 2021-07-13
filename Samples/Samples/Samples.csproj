@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Essentials\Xamarin.Essentials.csproj" />
+    <EmbeddedResource Include="..\..\Content\Media\*" Link="Media\%(Filename)%(Extension)" />
   </ItemGroup>
 
 </Project>
