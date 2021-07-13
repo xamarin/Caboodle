@@ -186,13 +186,13 @@ namespace Xamarin.Essentials
         {
             uiImage = image;
 
-            FullPath = Guid.NewGuid().ToString() + FileSystem.Extensions.Png;
+            FullPath = Guid.NewGuid().ToString() + FileSystem.Extensions.Jpg;
             FileName = FullPath;
         }
 
         internal override Task<Stream> PlatformOpenReadAsync()
         {
-            data ??= uiImage.AsPNG();
+            data ??= uiImage.AsJPEG();
 
             return Task.FromResult(data.AsStream());
         }
