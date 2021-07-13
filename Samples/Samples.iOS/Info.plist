@@ -78,5 +78,7 @@
 	<array>
 		<string>mailto</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

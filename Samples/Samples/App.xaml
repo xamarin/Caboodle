@@ -9,21 +9,49 @@
             <converters:NegativeConverter x:Key="NegativeConverter" />
             <Style TargetType="Page" ApplyToDerivedTypes="True">
                 <Setter Property="Visual" Value="{x:Static local:App.PreferredVisual}" />
+                <Setter Property="BackgroundColor" Value="White" />
+            </Style>
+            <Style TargetType="NavigationPage">
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="BarBackgroundColor" Value="White" />
+                <Setter Property="BarTextColor" Value="Black" />
+            </Style> 
+            <Style TargetType="ListView">
+                <Setter Property="BackgroundColor" Value="White" />
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
+            <Style TargetType="SearchBar">
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="CancelButtonColor" Value="Black" />
+                <Setter Property="PlaceholderColor" Value="Gray" />
             </Style>
             <Style TargetType="Editor">
-                <Setter Property="TextColor" Value="{OnPlatform iOS='Black'}" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="Visual" Value="Default" />
+                <Setter Property="BackgroundColor" Value="WhiteSmoke" />
             </Style>
             <Style TargetType="Entry">
-                <Setter Property="TextColor" Value="{OnPlatform iOS='Black'}" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="Visual" Value="Default" />
+                <Setter Property="BackgroundColor" Value="WhiteSmoke" />
             </Style>
             <Style TargetType="Picker">
-                <Setter Property="TextColor" Value="{OnPlatform iOS='Black'}" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="Visual" Value="Default" />
+                <Setter Property="BackgroundColor" Value="WhiteSmoke" />
             </Style>
             <Style TargetType="DatePicker">
-                <Setter Property="TextColor" Value="{OnPlatform iOS='Black'}" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="Visual" Value="Default" />
+                <Setter Property="BackgroundColor" Value="WhiteSmoke" />
             </Style>
             <Style TargetType="TimePicker">
-                <Setter Property="TextColor" Value="{OnPlatform iOS='Black'}" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="Visual" Value="Default" />
+                <Setter Property="BackgroundColor" Value="WhiteSmoke" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>
