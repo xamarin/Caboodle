@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Contacts;
@@ -12,6 +12,11 @@ namespace Xamarin.Essentials
     {
         internal static Task PlatformOpenMapsAsync(double latitude, double longitude, MapLaunchOptions options)
         {
+            return PlatformTryOpenMapsAsync(latitude, longitude, options);
+        }
+
+        internal static Task<bool> PlatformTryOpenMapsAsync(double latitude, double longitude, MapLaunchOptions options)
+        {
             if (string.IsNullOrWhiteSpace(options.Name))
                 options.Name = string.Empty;
 
@@ -21,6 +26,11 @@ namespace Xamarin.Essentials
         }
 
         internal static async Task PlatformOpenMapsAsync(Placemark placemark, MapLaunchOptions options)
+        {
+            await PlatformTryOpenMapsAsync(placemark, options);
+        }
+
+        internal static async Task<bool> PlatformTryOpenMapsAsync(Placemark placemark, MapLaunchOptions options)
         {
 #if __IOS__
             var address = new MKPlacemarkAddress
@@ -47,7 +57,7 @@ namespace Xamarin.Essentials
             var resolvedPlacemarks = await GetPlacemarksAsync(address);
             if (resolvedPlacemarks?.Length > 0)
             {
-                await OpenPlacemark(new MKPlacemark(resolvedPlacemarks[0].Location.Coordinate, address), options);
+                return await OpenPlacemark(new MKPlacemark(resolvedPlacemarks[0].Location.Coordinate, address), options);
             }
             else
             {
@@ -56,9 +66,9 @@ namespace Xamarin.Essentials
                 var uri = $"http://maps.apple.com/?q={placemark.GetEscapedAddress()}";
                 var nsurl = NSUrl.FromString(uri);
 
-                await Launcher.PlatformOpenAsync(nsurl);
+                return await Launcher.PlatformTryOpenAsync(nsurl);
 #else
-                await OpenPlacemark(new MKPlacemark(default, address), options);
+                return await OpenPlacemark(new MKPlacemark(default, address), options);
 #endif
             }
         }

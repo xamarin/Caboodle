@@ -37,26 +37,6 @@
         <remarks></remarks>
       </Docs>
     </Member>
-    <Member MemberName="ChargeLevel">
-      <MemberSignature Language="C#" Value="public static double ChargeLevel { get; }" />
-      <MemberSignature Language="ILAsm" Value=".property float64 ChargeLevel" />
-      <MemberSignature Language="DocId" Value="P:Xamarin.Essentials.Battery.ChargeLevel" />
-      <MemberType>Property</MemberType>
-      <AssemblyInfo>
-        <AssemblyVersion>1.0.0.0</AssemblyVersion>
-        <AssemblyName>Xamarin.Essentials</AssemblyName>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Double</ReturnType>
-      </ReturnValue>
-      <Docs>
-        <summary>Gets the current charge level of the device from 0.0 to 1.0.</summary>
-        <value>
-          <para>Level of charge. Returns -1 if no battery exists.</para>
-        </value>
-        <remarks></remarks>
-      </Docs>
-    </Member>
     <Member MemberName="EnergySaverStatus">
       <MemberSignature Language="C#" Value="public static Xamarin.Essentials.EnergySaverStatus EnergySaverStatus { get; }" />
       <MemberSignature Language="ILAsm" Value=".property valuetype Xamarin.Essentials.EnergySaverStatus EnergySaverStatus" />
@@ -89,6 +69,26 @@
       </ReturnValue>
       <Docs>
         <summary>Event that is triggered when energy saver status changes.</summary>
+        <remarks></remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ChargeLevel">
+      <MemberSignature Language="C#" Value="public static double ChargeLevel { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property float64 ChargeLevel" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Essentials.Battery.ChargeLevel" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Double</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets the current charge level of the device from 0.0 to 1.0.</summary>
+        <value>
+          <para>Level of charge. Returns -1 if no battery exists.</para>
+        </value>
         <remarks></remarks>
       </Docs>
     </Member>

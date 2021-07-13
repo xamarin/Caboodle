@@ -99,10 +99,7 @@
           <AttributeName>System.Runtime.Versioning.TargetFramework("Xamarin.Mac,Version=v2.0", FrameworkDisplayName="Xamarin.Mac")</AttributeName>
         </Attribute>
         <Attribute>
-          <AttributeName>System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/xamarin/Essentials")</AttributeName>
-        </Attribute>
-        <Attribute>
-          <AttributeName>System.Reflection.AssemblyInformationalVersion("1.0.0+2fb7c9ee75e244e990677fa4ef85bbfd730a97e7")</AttributeName>
+          <AttributeName>System.Reflection.AssemblyInformationalVersion("1.0.0+6c80e921dfbb590a599bd3e45675ca7510c25f7c")</AttributeName>
         </Attribute>
       </Attributes>
     </Assembly>
@@ -112,8 +109,8 @@
   <Types>
     <Namespace Name="Xamarin.Essentials">
       <Type Name="Accelerometer" Kind="Class" />
-      <Type Name="AccelerometerChangedEventArgs" Kind="Class" />
       <Type Name="AccelerometerData" Kind="Structure" />
+      <Type Name="AccelerometerChangedEventArgs" Kind="Class" />
       <Type Name="ActivityState" Kind="Enumeration" />
       <Type Name="ActivityStateChangedEventArgs" Kind="Class" />
       <Type Name="AltitudeReferenceSystem" Kind="Enumeration" />
@@ -125,8 +122,8 @@
       <Type Name="AppleSignInAuthenticator+Options" Kind="Class" />
       <Type Name="AppTheme" Kind="Enumeration" />
       <Type Name="Barometer" Kind="Class" />
-      <Type Name="BarometerChangedEventArgs" Kind="Class" />
       <Type Name="BarometerData" Kind="Structure" />
+      <Type Name="BarometerChangedEventArgs" Kind="Class" />
       <Type Name="Battery" Kind="Class" />
       <Type Name="BatteryInfoChangedEventArgs" Kind="Class" />
       <Type Name="BatteryPowerSource" Kind="Enumeration" />
@@ -140,8 +137,8 @@
       <Type Name="ColorConverters" Kind="Class" />
       <Type Name="ColorExtensions" Kind="Class" />
       <Type Name="Compass" Kind="Class" />
-      <Type Name="CompassChangedEventArgs" Kind="Class" />
       <Type Name="CompassData" Kind="Structure" />
+      <Type Name="CompassChangedEventArgs" Kind="Class" />
       <Type Name="ConnectionProfile" Kind="Enumeration" />
       <Type Name="Connectivity" Kind="Class" />
       <Type Name="ConnectivityChangedEventArgs" Kind="Class" />
@@ -181,8 +178,8 @@
       <Type Name="GeolocationAccuracy" Kind="Enumeration" />
       <Type Name="GeolocationRequest" Kind="Class" />
       <Type Name="Gyroscope" Kind="Class" />
-      <Type Name="GyroscopeChangedEventArgs" Kind="Class" />
       <Type Name="GyroscopeData" Kind="Structure" />
+      <Type Name="GyroscopeChangedEventArgs" Kind="Class" />
       <Type Name="HapticFeedback" Kind="Class" />
       <Type Name="HapticFeedbackType" Kind="Enumeration" />
       <Type Name="Launcher" Kind="Class" />
@@ -190,8 +187,8 @@
       <Type Name="Location" Kind="Class" />
       <Type Name="LocationExtensions" Kind="Class" />
       <Type Name="Magnetometer" Kind="Class" />
-      <Type Name="MagnetometerChangedEventArgs" Kind="Class" />
       <Type Name="MagnetometerData" Kind="Structure" />
+      <Type Name="MagnetometerChangedEventArgs" Kind="Class" />
       <Type Name="MainThread" Kind="Class" />
       <Type Name="Map" Kind="Class" />
       <Type Name="MapLaunchOptions" Kind="Class" />
@@ -202,8 +199,8 @@
       <Type Name="NotImplementedInReferenceAssemblyException" Kind="Class" />
       <Type Name="OpenFileRequest" Kind="Class" />
       <Type Name="OrientationSensor" Kind="Class" />
-      <Type Name="OrientationSensorChangedEventArgs" Kind="Class" />
       <Type Name="OrientationSensorData" Kind="Structure" />
+      <Type Name="OrientationSensorChangedEventArgs" Kind="Class" />
       <Type Name="PermissionException" Kind="Class" />
       <Type Name="Permissions" Kind="Class" />
       <Type Name="Permissions+BasePermission" Kind="Class" />

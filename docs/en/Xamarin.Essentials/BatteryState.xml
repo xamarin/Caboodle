@@ -14,23 +14,6 @@
     <remarks></remarks>
   </Docs>
   <Members>
-    <Member MemberName="Charging">
-      <MemberSignature Language="C#" Value="Charging" />
-      <MemberSignature Language="ILAsm" Value=".field public static literal valuetype Xamarin.Essentials.BatteryState Charging = int32(1)" />
-      <MemberSignature Language="DocId" Value="F:Xamarin.Essentials.BatteryState.Charging" />
-      <MemberType>Field</MemberType>
-      <AssemblyInfo>
-        <AssemblyVersion>1.0.0.0</AssemblyVersion>
-        <AssemblyName>Xamarin.Essentials</AssemblyName>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>Xamarin.Essentials.BatteryState</ReturnType>
-      </ReturnValue>
-      <MemberValue>1</MemberValue>
-      <Docs>
-        <summary>Battery is acively being charged by a power source.</summary>
-      </Docs>
-    </Member>
     <Member MemberName="Discharging">
       <MemberSignature Language="C#" Value="Discharging" />
       <MemberSignature Language="ILAsm" Value=".field public static literal valuetype Xamarin.Essentials.BatteryState Discharging = int32(2)" />
@@ -63,6 +46,23 @@
       <MemberValue>3</MemberValue>
       <Docs>
         <summary>Battery is full.</summary>
+      </Docs>
+    </Member>
+    <Member MemberName="Charging">
+      <MemberSignature Language="C#" Value="Charging" />
+      <MemberSignature Language="ILAsm" Value=".field public static literal valuetype Xamarin.Essentials.BatteryState Charging = int32(1)" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Essentials.BatteryState.Charging" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Xamarin.Essentials.BatteryState</ReturnType>
+      </ReturnValue>
+      <MemberValue>1</MemberValue>
+      <Docs>
+        <summary>Battery is acively being charged by a power source.</summary>
       </Docs>
     </Member>
     <Member MemberName="NotCharging">

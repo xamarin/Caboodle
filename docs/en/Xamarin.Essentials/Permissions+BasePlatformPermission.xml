@@ -32,6 +32,24 @@
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
+    <Member MemberName="EnsureDeclared">
+      <MemberSignature Language="C#" Value="public override void EnsureDeclared ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void EnsureDeclared() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.Permissions.BasePlatformPermission.EnsureDeclared" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Ensures that all permissions are declared.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
     <Member MemberName="CheckStatusAsync">
       <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;Xamarin.Essentials.PermissionStatus&gt; CheckStatusAsync ();" />
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;valuetype Xamarin.Essentials.PermissionStatus&gt; CheckStatusAsync() cil managed" />
@@ -48,24 +66,6 @@
       <Docs>
         <summary>Checks the status of a specific permission.</summary>
         <returns>The current status of the permission.</returns>
-        <remarks>To be added.</remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="EnsureDeclared">
-      <MemberSignature Language="C#" Value="public override void EnsureDeclared ();" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void EnsureDeclared() cil managed" />
-      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.Permissions.BasePlatformPermission.EnsureDeclared" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyName>Xamarin.Essentials</AssemblyName>
-        <AssemblyVersion>1.0.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Void</ReturnType>
-      </ReturnValue>
-      <Parameters />
-      <Docs>
-        <summary>Ensures that all permissions are declared.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>

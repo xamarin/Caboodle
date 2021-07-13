@@ -43,5 +43,44 @@ namespace Xamarin.Essentials
 
             return PlatformOpenMapsAsync(placemark, options);
         }
+
+        public static Task<bool> TryOpenAsync(Location location) =>
+            TryOpenAsync(location, new MapLaunchOptions());
+
+        public static Task<bool> TryOpenAsync(Location location, MapLaunchOptions options)
+        {
+            if (location == null)
+                throw new ArgumentNullException(nameof(location));
+
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            return PlatformTryOpenMapsAsync(location.Latitude, location.Longitude, options);
+        }
+
+        public static Task<bool> TryOpenAsync(double latitude, double longitude) =>
+            TryOpenAsync(latitude, longitude, new MapLaunchOptions());
+
+        public static Task<bool> TryOpenAsync(double latitude, double longitude, MapLaunchOptions options)
+        {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            return PlatformTryOpenMapsAsync(latitude, longitude, options);
+        }
+
+        public static Task<bool> TryOpenAsync(Placemark placemark) =>
+            TryOpenAsync(placemark, new MapLaunchOptions());
+
+        public static Task<bool> TryOpenAsync(Placemark placemark, MapLaunchOptions options)
+        {
+            if (placemark == null)
+                throw new ArgumentNullException(nameof(placemark));
+
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            return PlatformTryOpenMapsAsync(placemark, options);
+        }
     }
 }

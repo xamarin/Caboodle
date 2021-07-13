@@ -157,5 +157,147 @@
         <remarks></remarks>
       </Docs>
     </Member>
+    <Member MemberName="TryOpenAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task&lt;bool&gt; TryOpenAsync (Xamarin.Essentials.Location location);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task`1&lt;bool&gt; TryOpenAsync(class Xamarin.Essentials.Location location) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.Map.TryOpenAsync(Xamarin.Essentials.Location)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Boolean&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="location" Type="Xamarin.Essentials.Location" />
+      </Parameters>
+      <Docs>
+        <param name="location">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryOpenAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task&lt;bool&gt; TryOpenAsync (Xamarin.Essentials.Placemark placemark);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task`1&lt;bool&gt; TryOpenAsync(class Xamarin.Essentials.Placemark placemark) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.Map.TryOpenAsync(Xamarin.Essentials.Placemark)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Boolean&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="placemark" Type="Xamarin.Essentials.Placemark" />
+      </Parameters>
+      <Docs>
+        <param name="placemark">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryOpenAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task&lt;bool&gt; TryOpenAsync (double latitude, double longitude);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task`1&lt;bool&gt; TryOpenAsync(float64 latitude, float64 longitude) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.Map.TryOpenAsync(System.Double,System.Double)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Boolean&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="latitude" Type="System.Double" />
+        <Parameter Name="longitude" Type="System.Double" />
+      </Parameters>
+      <Docs>
+        <param name="latitude">To be added.</param>
+        <param name="longitude">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryOpenAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task&lt;bool&gt; TryOpenAsync (Xamarin.Essentials.Location location, Xamarin.Essentials.MapLaunchOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task`1&lt;bool&gt; TryOpenAsync(class Xamarin.Essentials.Location location, class Xamarin.Essentials.MapLaunchOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.Map.TryOpenAsync(Xamarin.Essentials.Location,Xamarin.Essentials.MapLaunchOptions)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Boolean&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="location" Type="Xamarin.Essentials.Location" />
+        <Parameter Name="options" Type="Xamarin.Essentials.MapLaunchOptions" />
+      </Parameters>
+      <Docs>
+        <param name="location">To be added.</param>
+        <param name="options">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryOpenAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task&lt;bool&gt; TryOpenAsync (Xamarin.Essentials.Placemark placemark, Xamarin.Essentials.MapLaunchOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task`1&lt;bool&gt; TryOpenAsync(class Xamarin.Essentials.Placemark placemark, class Xamarin.Essentials.MapLaunchOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.Map.TryOpenAsync(Xamarin.Essentials.Placemark,Xamarin.Essentials.MapLaunchOptions)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Boolean&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="placemark" Type="Xamarin.Essentials.Placemark" />
+        <Parameter Name="options" Type="Xamarin.Essentials.MapLaunchOptions" />
+      </Parameters>
+      <Docs>
+        <param name="placemark">To be added.</param>
+        <param name="options">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TryOpenAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task&lt;bool&gt; TryOpenAsync (double latitude, double longitude, Xamarin.Essentials.MapLaunchOptions options);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task`1&lt;bool&gt; TryOpenAsync(float64 latitude, float64 longitude, class Xamarin.Essentials.MapLaunchOptions options) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.Map.TryOpenAsync(System.Double,System.Double,Xamarin.Essentials.MapLaunchOptions)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Boolean&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="latitude" Type="System.Double" />
+        <Parameter Name="longitude" Type="System.Double" />
+        <Parameter Name="options" Type="Xamarin.Essentials.MapLaunchOptions" />
+      </Parameters>
+      <Docs>
+        <param name="latitude">To be added.</param>
+        <param name="longitude">To be added.</param>
+        <param name="options">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
   </Members>
 </Type>
