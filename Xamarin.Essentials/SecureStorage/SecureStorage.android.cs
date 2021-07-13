@@ -18,8 +18,9 @@ namespace Xamarin.Essentials
 
         static readonly object locker = new object();
 
-        static Task<string> PlatformGetAsync(string key)
+        static Task<string> PlatformGetAsync(string key, string accessGroup)
         {
+            var alias = GetAlias(accessGroup);
             var context = Platform.AppContext;
 
             string encStr = default;
@@ -28,19 +29,19 @@ namespace Xamarin.Essentials
             if (LegacyKeyHashFallback)
             {
                 // If not found, could have been previously stored with md5 key
-                if (!Preferences.ContainsKey(key, Alias))
+                if (!Preferences.ContainsKey(key, alias))
                 {
                     // If previously stored with md5 key, save with new key
                     var md5Key = Md5Hash(key);
-                    if (Preferences.ContainsKey(md5Key, Alias))
+                    if (Preferences.ContainsKey(md5Key, alias))
                     {
-                        encStr = Preferences.Get(md5Key, null, Alias);
-                        Preferences.Set(key, encStr, Alias);
+                        encStr = Preferences.Get(md5Key, null, alias);
+                        Preferences.Set(key, encStr, alias);
                         foundLegacyValue = true;
 
                         try
                         {
-                            Preferences.Remove(md5Key, Alias);
+                            Preferences.Remove(md5Key, alias);
                         }
                         catch
                         {
@@ -50,7 +51,7 @@ namespace Xamarin.Essentials
             }
 
             if (!foundLegacyValue)
-                encStr = Preferences.Get(key, null, Alias);
+                encStr = Preferences.Get(key, null, alias);
 
             string decryptedData = null;
             if (!string.IsNullOrEmpty(encStr))
@@ -60,7 +61,7 @@ namespace Xamarin.Essentials
                     var encData = Convert.FromBase64String(encStr);
                     lock (locker)
                     {
-                        var ks = new AndroidKeyStore(context, Alias, AlwaysUseAsymmetricKeyStorage);
+                        var ks = new AndroidKeyStore(context, alias, AlwaysUseAsymmetricKeyStorage);
                         decryptedData = ks.Decrypt(encData);
                     }
                 }
@@ -74,47 +75,46 @@ namespace Xamarin.Essentials
             return Task.FromResult(decryptedData);
         }
 
-        static Task PlatformSetAsync(string key, string data)
+        static Task PlatformSetAsync(string key, string data, string accessGroup)
         {
+            var alias = GetAlias(accessGroup);
             var context = Platform.AppContext;
 
             byte[] encryptedData = null;
             lock (locker)
             {
-                var ks = new AndroidKeyStore(context, Alias, AlwaysUseAsymmetricKeyStorage);
+                var ks = new AndroidKeyStore(context, alias, AlwaysUseAsymmetricKeyStorage);
                 encryptedData = ks.Encrypt(data);
             }
 
             var encStr = Convert.ToBase64String(encryptedData);
-            Preferences.Set(key, encStr, Alias);
+            Preferences.Set(key, encStr, alias);
 
-            CheckForAndRemoveLegacyKey(key);
+            CheckForAndRemoveLegacyKey(key, alias);
 
             return Task.CompletedTask;
         }
 
-        static bool PlatformRemove(string key)
+        static bool PlatformRemove(string key, string accessGroup)
         {
-            var context = Platform.AppContext;
+            var alias = GetAlias(accessGroup);
+            Preferences.Remove(key, alias);
 
-            Preferences.Remove(key, Alias);
-
-            CheckForAndRemoveLegacyKey(key);
+            CheckForAndRemoveLegacyKey(key, alias);
 
             return true;
         }
 
-        static void CheckForAndRemoveLegacyKey(string key)
+        static void CheckForAndRemoveLegacyKey(string key, string alias)
         {
             if (LegacyKeyHashFallback)
             {
                 var md5Key = Md5Hash(key);
-
-                if (Preferences.ContainsKey(md5Key, Alias))
+                if (Preferences.ContainsKey(md5Key, alias))
                 {
                     try
                     {
-                        Preferences.Remove(md5Key, Alias);
+                        Preferences.Remove(md5Key, alias);
                     }
                     catch
                     {
@@ -123,8 +123,8 @@ namespace Xamarin.Essentials
             }
         }
 
-        static void PlatformRemoveAll() =>
-            Preferences.Clear(Alias);
+        static void PlatformRemoveAll(string accessGroup) =>
+            Preferences.Clear(GetAlias(accessGroup));
 
         internal static bool AlwaysUseAsymmetricKeyStorage { get; set; } = false;
 
