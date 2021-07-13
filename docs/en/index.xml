@@ -102,7 +102,7 @@
           <AttributeName>System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/xamarin/Essentials")</AttributeName>
         </Attribute>
         <Attribute>
-          <AttributeName>System.Reflection.AssemblyInformationalVersion("1.0.0+2fb7c9ee75e244e990677fa4ef85bbfd730a97e7")</AttributeName>
+          <AttributeName>System.Reflection.AssemblyInformationalVersion("1.0.0+839a4842d00599dc916b2991fa5363e764c2e838")</AttributeName>
         </Attribute>
       </Attributes>
     </Assembly>
@@ -184,6 +184,7 @@
       <Type Name="GyroscopeChangedEventArgs" Kind="Class" />
       <Type Name="GyroscopeData" Kind="Structure" />
       <Type Name="HapticFeedback" Kind="Class" />
+      <Type Name="HapticFeedbackGenerator" Kind="Class" />
       <Type Name="HapticFeedbackType" Kind="Enumeration" />
       <Type Name="Launcher" Kind="Class" />
       <Type Name="Locale" Kind="Class" />

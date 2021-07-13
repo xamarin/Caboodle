@@ -1,14 +1,19 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace Xamarin.Essentials
 {
     public static partial class HapticFeedback
     {
-        internal static bool IsSupported
+        static HapticFeedbackGenerator PlatformPrepareGenerator(HapticFeedbackType type)
+            => throw ExceptionUtils.NotSupportedOrImplementedException;
+    }
+
+    public partial class HapticFeedbackGenerator
+    {
+        void PlatformPerform()
             => throw ExceptionUtils.NotSupportedOrImplementedException;
 
-        static void PlatformPerform(HapticFeedbackType type)
+        void PlatformDispose()
             => throw ExceptionUtils.NotSupportedOrImplementedException;
     }
 }

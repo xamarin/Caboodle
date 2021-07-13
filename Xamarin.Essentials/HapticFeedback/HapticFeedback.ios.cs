@@ -1,46 +1,43 @@
-﻿using System;
-using System.Threading.Tasks;
-using UIKit;
+﻿using UIKit;
 
 namespace Xamarin.Essentials
 {
     public static partial class HapticFeedback
     {
-        internal static bool IsSupported => true;
-
-        static void PlatformPerform(HapticFeedbackType type)
+        static HapticFeedbackGenerator PlatformPrepareGenerator(HapticFeedbackType type = HapticFeedbackType.Click)
         {
-            switch (type)
-            {
-                case HapticFeedbackType.LongPress:
-                    PlatformLongPress();
-                    break;
-                default:
-                    PlatformClick();
-                    break;
-            }
+            if (!Platform.HasOSVersion(10, 0))
+                throw new FeatureNotSupportedException(notSupportedMessage);
+
+            return new HapticFeedbackGenerator(type, ConvertType(type));
         }
 
-        static void PlatformClick()
-        {
-            if (Platform.HasOSVersion(10, 0))
+        static UIImpactFeedbackStyle ConvertType(HapticFeedbackType type)
+            => type switch
             {
-                var impact = new UIImpactFeedbackGenerator(UIImpactFeedbackStyle.Light);
-                impact.Prepare();
-                impact.ImpactOccurred();
-                impact.Dispose();
-            }
+                HapticFeedbackType.LongPress => UIImpactFeedbackStyle.Medium,
+                _ => UIImpactFeedbackStyle.Light
+            };
+    }
+
+    public partial class HapticFeedbackGenerator
+    {
+        UIImpactFeedbackGenerator impact;
+
+        internal HapticFeedbackGenerator(HapticFeedbackType type, UIImpactFeedbackStyle nativeType)
+            : this(type)
+        {
+            impact = new UIImpactFeedbackGenerator(nativeType);
+            impact.Prepare();
         }
 
-        static void PlatformLongPress()
+        protected internal virtual void PlatformPerform()
+            => impact.ImpactOccurred();
+
+        protected internal virtual void PlatformDispose()
         {
-            if (Platform.HasOSVersion(10, 0))
-            {
-                var impact = new UIImpactFeedbackGenerator(UIImpactFeedbackStyle.Medium);
-                impact.Prepare();
-                impact.ImpactOccurred();
-                impact.Dispose();
-            }
+            impact?.Dispose();
+            impact = null;
         }
     }
 }

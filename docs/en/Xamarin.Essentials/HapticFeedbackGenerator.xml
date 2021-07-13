@@ -1,0 +1,80 @@
+<Type Name="HapticFeedbackGenerator" FullName="Xamarin.Essentials.HapticFeedbackGenerator">
+  <TypeSignature Language="C#" Value="public class HapticFeedbackGenerator : IDisposable" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit HapticFeedbackGenerator extends System.Object implements class System.IDisposable" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Essentials.HapticFeedbackGenerator" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Essentials</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>System.IDisposable</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary>Provides methods to control HapticFeedback responses</summary>
+    <remarks></remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="Dispose">
+      <MemberSignature Language="C#" Value="public void Dispose ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Dispose() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.HapticFeedbackGenerator.Dispose" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:System.IDisposable.Dispose</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Resetting unmanaged resources.</summary>
+        <remarks></remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Perform">
+      <MemberSignature Language="C#" Value="public void Perform ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Perform() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.HapticFeedbackGenerator.Perform" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Calls the platform-oriented method to cause a HapticFeedback response of the specified type</summary>
+        <remarks></remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Type">
+      <MemberSignature Language="C#" Value="public Xamarin.Essentials.HapticFeedbackType Type { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype Xamarin.Essentials.HapticFeedbackType Type" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Essentials.HapticFeedbackGenerator.Type" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Xamarin.Essentials.HapticFeedbackType</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>The type of a HapticFeedback response that will be called</summary>
+        <value></value>
+        <remarks></remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

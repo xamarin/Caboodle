@@ -3,7 +3,7 @@
                 xmlns:views="clr-namespace:Samples.View"
                 xmlns:viewmodels="clr-namespace:Samples.ViewModel"
                 x:Class="Samples.View.HapticFeedbackPage"
-                Title="Vibration">
+                Title="HapticFeedback">
     <views:BasePage.BindingContext>
         <viewmodels:HapticFeedbackViewModel />
     </views:BasePage.BindingContext>
@@ -13,12 +13,17 @@
 
         <ScrollView>
             <StackLayout Padding="12,0,12,12" Spacing="6">
-                <Button Text="Click" Command="{Binding ClickCommand}" />
-                <Button Text="LongPress" Command="{Binding LongPressCommand}" />
                 <Label Text="HapticFeadback is not supported." TextColor="Red" FontAttributes="Italic"
                        IsVisible="{Binding IsSupported, Converter={StaticResource NegativeConverter}}" />
+
+                <Button Text="Click" Command="{Binding ClickCommand}" />
+                <Button Text="LongPress" Command="{Binding LongPressCommand}" />
+
+                <Label Text="Using LongPress Haptic Feedback Generator" FontAttributes="Bold" Margin="12" />
+                <Button Text="Prepare" Command="{Binding PrepareCommand}" />
+                <Button Text="Dispose" Command="{Binding DisposeCommand}" />
+                <Button Text="Perform" Command="{Binding PerformCommand}" />
             </StackLayout>
         </ScrollView>
     </StackLayout>
-
 </views:BasePage>

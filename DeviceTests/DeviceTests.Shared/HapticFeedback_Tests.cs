@@ -1,5 +1,4 @@
-﻿using System;
-using Xamarin.Essentials;
+﻿using Xamarin.Essentials;
 using Xunit;
 
 namespace DeviceTests
@@ -11,5 +10,19 @@ namespace DeviceTests
 
         [Fact]
         public void LongPress() => HapticFeedback.Perform(HapticFeedbackType.LongPress);
+
+        [Fact]
+        public void ClickWithGenerator()
+        {
+            using var generator = HapticFeedback.PrepareGenerator(HapticFeedbackType.Click);
+            generator.Perform();
+        }
+
+        [Fact]
+        public void LongPressWithGenerator()
+        {
+            using var generator = HapticFeedback.PrepareGenerator(HapticFeedbackType.LongPress);
+            generator.Perform();
+        }
     }
 }

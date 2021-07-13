@@ -472,6 +472,13 @@
     </Type>
     <Type Name="Xamarin.Essentials.HapticFeedback" Id="T:Xamarin.Essentials.HapticFeedback">
       <Member Id="M:Xamarin.Essentials.HapticFeedback.Perform(Xamarin.Essentials.HapticFeedbackType)" />
+      <Member Id="M:Xamarin.Essentials.HapticFeedback.PrepareGenerator(Xamarin.Essentials.HapticFeedbackType)" />
+    </Type>
+    <Type Name="Xamarin.Essentials.HapticFeedbackGenerator" Id="T:Xamarin.Essentials.HapticFeedbackGenerator">
+      <Member Id="M:Xamarin.Essentials.HapticFeedbackGenerator.#ctor(Xamarin.Essentials.HapticFeedbackType)" />
+      <Member Id="M:Xamarin.Essentials.HapticFeedbackGenerator.Dispose" />
+      <Member Id="M:Xamarin.Essentials.HapticFeedbackGenerator.Perform" />
+      <Member Id="P:Xamarin.Essentials.HapticFeedbackGenerator.Type" />
     </Type>
     <Type Name="Xamarin.Essentials.HapticFeedbackType" Id="T:Xamarin.Essentials.HapticFeedbackType">
       <Member Id="F:Xamarin.Essentials.HapticFeedbackType.Click" />
@@ -517,6 +524,7 @@
     <Type Name="Xamarin.Essentials.LocationExtensions" Id="T:Xamarin.Essentials.LocationExtensions">
       <Member Id="M:Xamarin.Essentials.LocationExtensions.CalculateDistance(Xamarin.Essentials.Location,System.Double,System.Double,Xamarin.Essentials.DistanceUnits)" />
       <Member Id="M:Xamarin.Essentials.LocationExtensions.CalculateDistance(Xamarin.Essentials.Location,Xamarin.Essentials.Location,Xamarin.Essentials.DistanceUnits)" />
+      <Member Id="M:Xamarin.Essentials.LocationExtensions.CLAuthorizationStatus_objc_msgSend(System.IntPtr,System.IntPtr)" />
       <Member Id="M:Xamarin.Essentials.LocationExtensions.OpenMapsAsync(Xamarin.Essentials.Location)" />
       <Member Id="M:Xamarin.Essentials.LocationExtensions.OpenMapsAsync(Xamarin.Essentials.Location,Xamarin.Essentials.MapLaunchOptions)" />
     </Type>

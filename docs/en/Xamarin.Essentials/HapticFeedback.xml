@@ -36,5 +36,27 @@
         <remarks></remarks>
       </Docs>
     </Member>
+    <Member MemberName="PrepareGenerator">
+      <MemberSignature Language="C#" Value="public static Xamarin.Essentials.HapticFeedbackGenerator PrepareGenerator (Xamarin.Essentials.HapticFeedbackType type = Xamarin.Essentials.HapticFeedbackType.Click);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class Xamarin.Essentials.HapticFeedbackGenerator PrepareGenerator(valuetype Xamarin.Essentials.HapticFeedbackType type) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.HapticFeedback.PrepareGenerator(Xamarin.Essentials.HapticFeedbackType)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Xamarin.Essentials.HapticFeedbackGenerator</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="type" Type="Xamarin.Essentials.HapticFeedbackType" />
+      </Parameters>
+      <Docs>
+        <param name="type">The type of a HapticFeedback response that will be returned</param>
+        <summary>Initialize and prepare HapticFeedbackGenerator</summary>
+        <returns></returns>
+        <remarks></remarks>
+      </Docs>
+    </Member>
   </Members>
 </Type>
