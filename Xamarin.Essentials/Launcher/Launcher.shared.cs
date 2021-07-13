@@ -89,6 +89,8 @@ namespace Xamarin.Essentials
 
         public ReadOnlyFile File { get; set; }
 
+        public bool QuickLook { get; set; } = false;
+
 #if !NETSTANDARD1_0
         public Rectangle PresentationSourceBounds { get; set; } = Rectangle.Empty;
 #endif

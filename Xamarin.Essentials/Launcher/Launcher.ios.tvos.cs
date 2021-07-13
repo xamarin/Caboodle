@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using CoreGraphics;
 using Foundation;
 using UIKit;
+#if __IOS__
+using QuickLook;
+#endif
 
 namespace Xamarin.Essentials
 {
@@ -36,29 +39,40 @@ namespace Xamarin.Essentials
 
         static Task PlatformOpenAsync(OpenFileRequest request)
         {
-            documentController = new UIDocumentInteractionController()
+            if (request.QuickLook)
             {
-                Name = request.File.FileName,
-                Url = NSUrl.FromFilename(request.File.FullPath),
-                Uti = request.File.ContentType
-            };
-
-            var view = Platform.GetCurrentUIViewController().View;
-
-            CGRect rect;
-
-            if (request.PresentationSourceBounds != Rectangle.Empty)
-            {
-                rect = request.PresentationSourceBounds.ToPlatformRectangle();
+                Platform.GetCurrentUIViewController()?.
+                    PresentViewController(
+                    new QLPreviewController() { DataSource = new PreviewDataSource(request.File.FullPath, request.Title ?? request.File.FileName) },
+                    true,
+                    null);
             }
             else
             {
-                rect = DeviceInfo.Idiom == DeviceIdiom.Tablet
-                    ? new CGRect(new CGPoint(view.Bounds.Width / 2, view.Bounds.Height), CGRect.Empty.Size)
-                    : view.Bounds;
-            }
+                documentController = new UIDocumentInteractionController()
+                {
+                    Name = request.File.FileName,
+                    Url = NSUrl.FromFilename(request.File.FullPath),
+                    Uti = request.File.ContentType
+                };
 
-            documentController.PresentOpenInMenu(rect, view, true);
+                var view = Platform.GetCurrentUIViewController().View;
+
+                CGRect rect;
+
+                if (request.PresentationSourceBounds != Rectangle.Empty)
+                {
+                    rect = request.PresentationSourceBounds.ToPlatformRectangle();
+                }
+                else
+                {
+                    rect = DeviceInfo.Idiom == DeviceIdiom.Tablet
+                        ? new CGRect(new CGPoint(view.Bounds.Width / 2, view.Bounds.Height), CGRect.Empty.Size)
+                        : view.Bounds;
+                }
+
+                documentController.PresentOpenInMenu(rect, view, true);
+            }
             return Task.CompletedTask;
         }
 
@@ -67,4 +81,36 @@ namespace Xamarin.Essentials
             throw new FeatureNotSupportedException();
 #endif
     }
+
+#if __IOS__
+    public class PreviewDataSource : QLPreviewControllerDataSource
+    {
+        readonly string filePath;
+        readonly string fileName;
+
+        public PreviewDataSource(string filePath, string fileName)
+        {
+            this.filePath = filePath;
+            this.fileName = fileName;
+        }
+
+        public override IQLPreviewItem GetPreviewItem(QLPreviewController controller, nint index)
+            => new PreviewItem(filePath, fileName);
+
+        public override nint PreviewItemCount(QLPreviewController controller) => 1;
+    }
+
+    public class PreviewItem : QLPreviewItem
+    {
+        public PreviewItem(string filePath, string fileName)
+        {
+            ItemUrl = NSUrl.FromFilename(filePath);
+            ItemTitle = fileName;
+        }
+
+        public override string ItemTitle { get; }
+
+        public override NSUrl ItemUrl { get; }
+    }
+#endif
 }

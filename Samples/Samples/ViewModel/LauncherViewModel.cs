@@ -14,6 +14,8 @@ namespace Samples.ViewModel
 
         public string LaunchUri { get; set; }
 
+        public bool QuickLook { get; set; }
+
         public ICommand LaunchCommand { get; }
 
         public ICommand CanLaunchCommand { get; }
@@ -94,7 +96,8 @@ namespace Samples.ViewModel
                 await Launcher.OpenAsync(new OpenFileRequest
                 {
                     File = new ReadOnlyFile(file),
-                    PresentationSourceBounds = rect
+                    PresentationSourceBounds = rect,
+                    QuickLook = QuickLook
                 });
             }
         }

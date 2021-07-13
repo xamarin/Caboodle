@@ -34,6 +34,8 @@
                     <Entry Text="{Binding FileAttachmentName}" />
                     <Label Text="File Contents:" />
                     <Editor Text="{Binding FileAttachmentContents}" AutoSize="TextChanges" />
+                    <Label Text="Preview inside the app (iOS)"/>
+                    <CheckBox IsChecked="{Binding QuickLook}"/>
 
                     <Button Text="Open File" Command="{Binding LaunchFileCommand}"
                             CommandParameter="{Binding Source={RelativeSource Self}}" />
