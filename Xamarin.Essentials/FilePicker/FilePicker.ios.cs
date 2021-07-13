@@ -34,9 +34,9 @@ namespace Xamarin.Essentials
 
             if (documentPicker.PresentationController != null)
             {
-                documentPicker.PresentationController.Delegate = new PickerPresentationControllerDelegate
+                documentPicker.PresentationController.Delegate = new Platform.UIPresentationControllerDelegate
                 {
-                    PickHandler = urls => GetFileResults(urls, tcs)
+                    DismissHandler = () => GetFileResults(null, tcs)
                 };
             }
 
@@ -73,14 +73,6 @@ namespace Xamarin.Essentials
 
             public override void DidPickDocument(UIDocumentPickerViewController controller, NSUrl url)
                 => PickHandler?.Invoke(new NSUrl[] { url });
-        }
-
-        class PickerPresentationControllerDelegate : UIAdaptivePresentationControllerDelegate
-        {
-            public Action<NSUrl[]> PickHandler { get; set; }
-
-            public override void DidDismiss(UIPresentationController presentationController) =>
-                PickHandler?.Invoke(null);
         }
     }
 

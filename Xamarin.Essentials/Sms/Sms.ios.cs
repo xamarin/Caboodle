@@ -21,13 +21,21 @@ namespace Xamarin.Essentials
 
             messageController.Recipients = message?.Recipients?.ToArray() ?? new string[] { };
 
-            // show the controller
             var tcs = new TaskCompletionSource<bool>();
             messageController.Finished += (sender, e) =>
             {
                 messageController.DismissViewController(true, null);
                 tcs?.TrySetResult(e.Result == MessageComposeResult.Sent);
             };
+
+            if (controller.PresentationController != null)
+            {
+                controller.PresentationController.Delegate = new Platform.UIPresentationControllerDelegate
+                {
+                    DismissHandler = () => tcs.TrySetResult(false)
+                };
+            }
+
             controller.PresentViewController(messageController, true, null);
 
             return tcs.Task;

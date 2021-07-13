@@ -39,6 +39,14 @@ namespace Xamarin.Essentials
                 })
             };
 
+            if (picker.PresentationController != null)
+            {
+                picker.PresentationController.Delegate = new Platform.UIPresentationControllerDelegate
+                {
+                    DismissHandler = () => source?.TrySetResult(null)
+                };
+            }
+
             uiView.PresentViewController(picker, true, null);
 
             return source.Task;

@@ -73,12 +73,20 @@ namespace Xamarin.Essentials
 
 #if __IOS__ || __TVOS__
 
+        static Func<UIViewController> getCurrentController;
+
+        public static void Init(Func<UIViewController> getCurrentUIViewController)
+            => getCurrentController = getCurrentUIViewController;
+
         public static UIViewController GetCurrentUIViewController() =>
             GetCurrentViewController(false);
 
         internal static UIViewController GetCurrentViewController(bool throwIfNull = true)
         {
-            UIViewController viewController = null;
+            var viewController = getCurrentController?.Invoke();
+
+            if (viewController != null)
+                return viewController;
 
             var window = UIApplication.SharedApplication.KeyWindow;
 
@@ -138,5 +146,21 @@ namespace Xamarin.Essentials
 
         internal static NSOperationQueue GetCurrentQueue() =>
             NSOperationQueue.CurrentQueue ?? new NSOperationQueue();
+
+#if __IOS__
+        internal class UIPresentationControllerDelegate : UIAdaptivePresentationControllerDelegate
+        {
+            public Action DismissHandler { get; set; }
+
+            public override void DidDismiss(UIPresentationController presentationController) =>
+                DismissHandler?.Invoke();
+
+            protected override void Dispose(bool disposing)
+            {
+                DismissHandler?.Invoke();
+                base.Dispose(disposing);
+            }
+        }
+#endif
     }
 }

@@ -75,9 +75,9 @@ namespace Xamarin.Essentials
 
             if (picker.PresentationController != null)
             {
-                picker.PresentationController.Delegate = new PhotoPickerPresentationControllerDelegate
+                picker.PresentationController.Delegate = new Platform.UIPresentationControllerDelegate
                 {
-                    CompletedHandler = info => GetFileResult(info, tcs)
+                    DismissHandler = () => GetFileResult(null, tcs)
                 };
             }
 
@@ -165,14 +165,6 @@ namespace Xamarin.Essentials
                 CompletedHandler?.Invoke(info);
 
             public override void Canceled(UIImagePickerController picker) =>
-                CompletedHandler?.Invoke(null);
-        }
-
-        class PhotoPickerPresentationControllerDelegate : UIAdaptivePresentationControllerDelegate
-        {
-            public Action<NSDictionary> CompletedHandler { get; set; }
-
-            public override void DidDismiss(UIPresentationController presentationController) =>
                 CompletedHandler?.Invoke(null);
         }
     }

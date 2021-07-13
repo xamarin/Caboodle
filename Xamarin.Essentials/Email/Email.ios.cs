@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Foundation;
 using MessageUI;
@@ -50,13 +51,21 @@ namespace Xamarin.Essentials
                 }
             }
 
-            // show the controller
             var tcs = new TaskCompletionSource<bool>();
             controller.Finished += (sender, e) =>
             {
                 controller.DismissViewController(true, null);
                 tcs.TrySetResult(e.Result == MFMailComposeResult.Sent);
             };
+
+            if (controller.PresentationController != null)
+            {
+                controller.PresentationController.Delegate = new Platform.UIPresentationControllerDelegate
+                {
+                    DismissHandler = () => tcs.TrySetResult(false)
+                };
+            }
+
             parentController.PresentViewController(controller, true, null);
 
             return tcs.Task;
