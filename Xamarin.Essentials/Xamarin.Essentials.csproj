@@ -114,5 +114,23 @@
   <ItemGroup>
     <None Remove="mdoc.targets" />
   </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net461')) ">
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <Reference Include="gtk-sharp, Version=2.12.0.0">
+      <HintPath>../Libs/gtk-sharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="glib-sharp, Version=2.12.0.0">
+      <HintPath>../Libs/glib-sharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="gdk-sharp, Version=2.12.0.0">
+      <HintPath>../Libs/gdk-sharp.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+  <PropertyGroup Condition=" $(TargetFramework.StartsWith('net461')) ">
+    <DefineConstants>$(DefineConstants);GTK</DefineConstants>
+  </PropertyGroup>
   <Import Project="$(MSBuildThisFileDirectory)mdoc.targets" />
 </Project>
