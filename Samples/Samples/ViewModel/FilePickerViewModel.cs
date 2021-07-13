@@ -92,6 +92,7 @@ namespace Samples.ViewModel
                     { DevicePlatform.UWP, new[] { ".cbr", ".cbz" } },
                     { DevicePlatform.Tizen, new[] { "*/*" } },
                     { DevicePlatform.macOS, new[] { "cbr", "cbz" } }, // or general UTType values
+                    { DevicePlatform.WindowsDesktop, new[] { "*.cbr", "*.cbz" } },
                 });
 
             var options = new PickOptions

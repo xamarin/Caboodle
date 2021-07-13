@@ -64,6 +64,7 @@ namespace Samples
                     new AppAction("app_info", "App Info", icon: "app_info_action_icon"),
                     new AppAction("battery_info", "Battery Info"));
             }
+
             catch (FeatureNotSupportedException ex)
             {
                 Debug.WriteLine($"{nameof(AppActions)} Exception: {ex}");
