@@ -217,26 +217,34 @@
       <Member Id="P:Xamarin.Essentials.ConnectivityChangedEventArgs.NetworkAccess" />
     </Type>
     <Type Name="Xamarin.Essentials.Contact" Id="T:Xamarin.Essentials.Contact">
-      <Member Id="P:Xamarin.Essentials.Contact.ContactType" />
+      <Member Id="M:Xamarin.Essentials.Contact.#ctor" />
+      <Member Id="M:Xamarin.Essentials.Contact.#ctor(System.String,System.String,System.String,System.String,System.String,System.String,System.Collections.Generic.IEnumerable{Xamarin.Essentials.ContactPhone},System.Collections.Generic.IEnumerable{Xamarin.Essentials.ContactEmail},System.String)" />
+      <Member Id="M:Xamarin.Essentials.Contact.ToString" />
+      <Member Id="P:Xamarin.Essentials.Contact.DisplayName" />
       <Member Id="P:Xamarin.Essentials.Contact.Emails" />
-      <Member Id="P:Xamarin.Essentials.Contact.Name" />
-      <Member Id="P:Xamarin.Essentials.Contact.Numbers" />
+      <Member Id="P:Xamarin.Essentials.Contact.FamilyName" />
+      <Member Id="P:Xamarin.Essentials.Contact.GivenName" />
+      <Member Id="P:Xamarin.Essentials.Contact.Id" />
+      <Member Id="P:Xamarin.Essentials.Contact.MiddleName" />
+      <Member Id="P:Xamarin.Essentials.Contact.NamePrefix" />
+      <Member Id="P:Xamarin.Essentials.Contact.NameSuffix" />
+      <Member Id="P:Xamarin.Essentials.Contact.Phones" />
     </Type>
     <Type Name="Xamarin.Essentials.ContactEmail" Id="T:Xamarin.Essentials.ContactEmail">
-      <Member Id="P:Xamarin.Essentials.ContactEmail.ContactType" />
+      <Member Id="M:Xamarin.Essentials.ContactEmail.#ctor" />
+      <Member Id="M:Xamarin.Essentials.ContactEmail.#ctor(System.String)" />
+      <Member Id="M:Xamarin.Essentials.ContactEmail.ToString" />
       <Member Id="P:Xamarin.Essentials.ContactEmail.EmailAddress" />
     </Type>
     <Type Name="Xamarin.Essentials.ContactPhone" Id="T:Xamarin.Essentials.ContactPhone">
-      <Member Id="P:Xamarin.Essentials.ContactPhone.ContactType" />
+      <Member Id="M:Xamarin.Essentials.ContactPhone.#ctor" />
+      <Member Id="M:Xamarin.Essentials.ContactPhone.#ctor(System.String)" />
+      <Member Id="M:Xamarin.Essentials.ContactPhone.ToString" />
       <Member Id="P:Xamarin.Essentials.ContactPhone.PhoneNumber" />
     </Type>
     <Type Name="Xamarin.Essentials.Contacts" Id="T:Xamarin.Essentials.Contacts">
+      <Member Id="M:Xamarin.Essentials.Contacts.GetAllAsync(System.Threading.CancellationToken)" />
       <Member Id="M:Xamarin.Essentials.Contacts.PickContactAsync" />
-    </Type>
-    <Type Name="Xamarin.Essentials.ContactType" Id="T:Xamarin.Essentials.ContactType">
-      <Member Id="F:Xamarin.Essentials.ContactType.Personal" />
-      <Member Id="F:Xamarin.Essentials.ContactType.Unknown" />
-      <Member Id="F:Xamarin.Essentials.ContactType.Work" />
     </Type>
     <Type Name="Xamarin.Essentials.DeviceDisplay" Id="T:Xamarin.Essentials.DeviceDisplay">
       <Member Id="E:Xamarin.Essentials.DeviceDisplay.MainDisplayInfoChanged" />
@@ -292,6 +300,7 @@
     </Type>
     <Type Name="Xamarin.Essentials.DisplayInfo" Id="T:Xamarin.Essentials.DisplayInfo">
       <Member Id="M:Xamarin.Essentials.DisplayInfo.#ctor(System.Double,System.Double,System.Double,Xamarin.Essentials.DisplayOrientation,Xamarin.Essentials.DisplayRotation)" />
+      <Member Id="M:Xamarin.Essentials.DisplayInfo.#ctor(System.Double,System.Double,System.Double,Xamarin.Essentials.DisplayOrientation,Xamarin.Essentials.DisplayRotation,System.Single)" />
       <Member Id="M:Xamarin.Essentials.DisplayInfo.Equals(System.Object)" />
       <Member Id="M:Xamarin.Essentials.DisplayInfo.Equals(Xamarin.Essentials.DisplayInfo)" />
       <Member Id="M:Xamarin.Essentials.DisplayInfo.GetHashCode" />
@@ -301,6 +310,7 @@
       <Member Id="P:Xamarin.Essentials.DisplayInfo.Density" />
       <Member Id="P:Xamarin.Essentials.DisplayInfo.Height" />
       <Member Id="P:Xamarin.Essentials.DisplayInfo.Orientation" />
+      <Member Id="P:Xamarin.Essentials.DisplayInfo.RefreshRate" />
       <Member Id="P:Xamarin.Essentials.DisplayInfo.Rotation" />
       <Member Id="P:Xamarin.Essentials.DisplayInfo.Width" />
     </Type>
@@ -587,6 +597,7 @@
       <Member Id="M:Xamarin.Essentials.OpenFileRequest.#ctor(System.String,Xamarin.Essentials.FileBase)" />
       <Member Id="M:Xamarin.Essentials.OpenFileRequest.#ctor(System.String,Xamarin.Essentials.ReadOnlyFile)" />
       <Member Id="P:Xamarin.Essentials.OpenFileRequest.File" />
+      <Member Id="P:Xamarin.Essentials.OpenFileRequest.PresentationSourceBounds" />
       <Member Id="P:Xamarin.Essentials.OpenFileRequest.Title" />
     </Type>
     <Type Name="Xamarin.Essentials.OrientationSensor" Id="T:Xamarin.Essentials.OrientationSensor">
@@ -843,6 +854,7 @@
       <Member Id="M:Xamarin.Essentials.Share.RequestAsync(System.String)" />
       <Member Id="M:Xamarin.Essentials.Share.RequestAsync(System.String,System.String)" />
       <Member Id="M:Xamarin.Essentials.Share.RequestAsync(Xamarin.Essentials.ShareFileRequest)" />
+      <Member Id="M:Xamarin.Essentials.Share.RequestAsync(Xamarin.Essentials.ShareMultipleFilesRequest)" />
       <Member Id="M:Xamarin.Essentials.Share.RequestAsync(Xamarin.Essentials.ShareTextRequest)" />
     </Type>
     <Type Name="Xamarin.Essentials.ShareFile" Id="T:Xamarin.Essentials.ShareFile">
@@ -857,6 +869,15 @@
       <Member Id="M:Xamarin.Essentials.ShareFileRequest.#ctor(Xamarin.Essentials.FileBase)" />
       <Member Id="M:Xamarin.Essentials.ShareFileRequest.#ctor(Xamarin.Essentials.ShareFile)" />
       <Member Id="P:Xamarin.Essentials.ShareFileRequest.File" />
+    </Type>
+    <Type Name="Xamarin.Essentials.ShareMultipleFilesRequest" Id="T:Xamarin.Essentials.ShareMultipleFilesRequest">
+      <Member Id="M:Xamarin.Essentials.ShareMultipleFilesRequest.#ctor" />
+      <Member Id="M:Xamarin.Essentials.ShareMultipleFilesRequest.#ctor(System.Collections.Generic.IEnumerable{Xamarin.Essentials.FileBase})" />
+      <Member Id="M:Xamarin.Essentials.ShareMultipleFilesRequest.#ctor(System.Collections.Generic.IEnumerable{Xamarin.Essentials.ShareFile})" />
+      <Member Id="M:Xamarin.Essentials.ShareMultipleFilesRequest.#ctor(System.String,System.Collections.Generic.IEnumerable{Xamarin.Essentials.FileBase})" />
+      <Member Id="M:Xamarin.Essentials.ShareMultipleFilesRequest.#ctor(System.String,System.Collections.Generic.IEnumerable{Xamarin.Essentials.ShareFile})" />
+      <Member Id="M:Xamarin.Essentials.ShareMultipleFilesRequest.op_Explicit(Xamarin.Essentials.ShareFileRequest)~Xamarin.Essentials.ShareMultipleFilesRequest" />
+      <Member Id="P:Xamarin.Essentials.ShareMultipleFilesRequest.Files" />
     </Type>
     <Type Name="Xamarin.Essentials.ShareRequestBase" Id="T:Xamarin.Essentials.ShareRequestBase">
       <Member Id="M:Xamarin.Essentials.ShareRequestBase.#ctor" />

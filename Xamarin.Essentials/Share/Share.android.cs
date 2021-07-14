@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Android.Content;
 using Android.OS;
@@ -23,7 +21,7 @@ namespace Xamarin.Essentials
             }
 
             var intent = new Intent(Intent.ActionSend);
-            intent.SetType("text/plain");
+            intent.SetType(FileSystem.MimeTypes.TextPlain);
             intent.PutExtra(Intent.ExtraText, string.Join(System.Environment.NewLine, items));
 
             if (!string.IsNullOrWhiteSpace(request.Subject))
@@ -41,15 +39,31 @@ namespace Xamarin.Essentials
 
         static Task PlatformRequestAsync(ShareMultipleFilesRequest request)
         {
-            var contentUris = new List<IParcelable>();
-            var intent = new Intent(Intent.ActionSendMultiple);
+            // load the data we need
+            var contentUris = new List<IParcelable>(request.Files.Count);
+            var contentType = default(string);
             foreach (var file in request.Files)
+            {
                 contentUris.Add(Platform.GetShareableFileUri(file));
 
-            intent.SetType(request.Files.Count() > 1 ? "*/*" : request.Files.FirstOrDefault().ContentType);
+                if (contentType == null)
+                    contentType = file.ContentType;
+                else if (contentType != file.ContentType)
+                    contentType = FileSystem.MimeTypes.All;
+            }
 
+            var intentType = contentUris.Count > 1
+                ? Intent.ActionSendMultiple
+                : Intent.ActionSend;
+            var intent = new Intent(intentType);
+
+            intent.SetType(contentType);
             intent.SetFlags(ActivityFlags.GrantReadUriPermission);
-            intent.PutParcelableArrayListExtra(Intent.ExtraStream, contentUris);
+
+            if (contentUris.Count > 1)
+                intent.PutParcelableArrayListExtra(Intent.ExtraStream, contentUris);
+            else if (contentUris.Count == 1)
+                intent.PutExtra(Intent.ExtraStream, contentUris[0]);
 
             if (!string.IsNullOrEmpty(request.Title))
                 intent.PutExtra(Intent.ExtraTitle, request.Title);

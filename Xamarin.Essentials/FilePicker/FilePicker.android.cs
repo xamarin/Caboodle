@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using Android.App;
 using Android.Content;
-using Android.Provider;
 
 namespace Xamarin.Essentials
 {
@@ -16,14 +13,13 @@ namespace Xamarin.Essentials
         {
             // we only need the permission when accessing the file, but it's more natural
             // to ask the user first, then show the picker.
-            await Permissions.RequestAsync<Permissions.StorageRead>();
+            await Permissions.EnsureGrantedAsync<Permissions.StorageRead>();
 
             // Essentials supports >= API 19 where this action is available
             var action = Intent.ActionOpenDocument;
 
             var intent = new Intent(action);
-            intent.SetType("*/*");
-            intent.AddFlags(ActivityFlags.GrantPersistableUriPermission);
+            intent.SetType(FileSystem.MimeTypes.All);
             intent.PutExtra(Intent.ExtraAllowMultiple, allowMultiple);
 
             var allowedTypes = options?.FileTypes?.Value?.ToArray();
@@ -34,29 +30,30 @@ namespace Xamarin.Essentials
 
             try
             {
-                var result = await IntermediateActivity.StartAsync(pickerIntent, Platform.requestCodeFilePicker);
                 var resultList = new List<FileResult>();
-
-                var clipData = new List<global::Android.Net.Uri>();
-
-                if (result.ClipData == null)
+                void OnResult(Intent intent)
                 {
-                    clipData.Add(result.Data);
-                }
-                else
-                {
-                    for (var i = 0; i < result.ClipData.ItemCount; i++)
-                        clipData.Add(result.ClipData.GetItemAt(i).Uri);
+                    // The uri returned is only temporary and only lives as long as the Activity that requested it,
+                    // so this means that it will always be cleaned up by the time we need it because we are using
+                    // an intermediate activity.
+
+                    if (intent.ClipData == null)
+                    {
+                        var path = FileSystem.EnsurePhysicalPath(intent.Data);
+                        resultList.Add(new FileResult(path));
+                    }
+                    else
+                    {
+                        for (var i = 0; i < intent.ClipData.ItemCount; i++)
+                        {
+                            var uri = intent.ClipData.GetItemAt(i).Uri;
+                            var path = FileSystem.EnsurePhysicalPath(uri);
+                            resultList.Add(new FileResult(path));
+                        }
+                    }
                 }
 
-                foreach (var contentUri in clipData)
-                {
-                    Platform.AppContext.ContentResolver.TakePersistableUriPermission(
-                        contentUri,
-                        ActivityFlags.GrantReadUriPermission);
-
-                    resultList.Add(new FileResult(contentUri));
-                }
+                await IntermediateActivity.StartAsync(pickerIntent, Platform.requestCodeFilePicker, onResult: OnResult);
 
                 return resultList;
             }
@@ -72,31 +69,31 @@ namespace Xamarin.Essentials
         static FilePickerFileType PlatformImageFileType() =>
             new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
             {
-                { DevicePlatform.Android, new[] { "image/png", "image/jpeg" } }
+                { DevicePlatform.Android, new[] { FileSystem.MimeTypes.ImagePng, FileSystem.MimeTypes.ImageJpg } }
             });
 
         static FilePickerFileType PlatformPngFileType() =>
             new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
             {
-                { DevicePlatform.Android, new[] { "image/png" } }
+                { DevicePlatform.Android, new[] { FileSystem.MimeTypes.ImagePng } }
             });
 
         static FilePickerFileType PlatformJpegFileType() =>
             new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
             {
-                { DevicePlatform.Android, new[] { "image/jpeg" } }
+                { DevicePlatform.Android, new[] { FileSystem.MimeTypes.ImageJpg } }
             });
 
         static FilePickerFileType PlatformVideoFileType() =>
             new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
             {
-                { DevicePlatform.Android, new[] { "video/*" } }
+                { DevicePlatform.Android, new[] { FileSystem.MimeTypes.VideoAll } }
             });
 
         static FilePickerFileType PlatformPdfFileType() =>
             new FilePickerFileType(new Dictionary<DevicePlatform, IEnumerable<string>>
             {
-                { DevicePlatform.Android, new[] { "application/pdf" } }
+                { DevicePlatform.Android, new[] { FileSystem.MimeTypes.Pdf } }
             });
     }
 }

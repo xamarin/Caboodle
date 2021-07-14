@@ -21,9 +21,7 @@
   </Attributes>
   <Docs>
     <summary>Represents information about the screen.</summary>
-    <remarks>
-      <para></para>
-    </remarks>
+    <remarks></remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -52,6 +50,34 @@
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public DisplayInfo (double width, double height, double density, Xamarin.Essentials.DisplayOrientation orientation, Xamarin.Essentials.DisplayRotation rotation, float rate);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(float64 width, float64 height, float64 density, valuetype Xamarin.Essentials.DisplayOrientation orientation, valuetype Xamarin.Essentials.DisplayRotation rotation, float32 rate) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Essentials.DisplayInfo.#ctor(System.Double,System.Double,System.Double,Xamarin.Essentials.DisplayOrientation,Xamarin.Essentials.DisplayRotation,System.Single)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="width" Type="System.Double" />
+        <Parameter Name="height" Type="System.Double" />
+        <Parameter Name="density" Type="System.Double" />
+        <Parameter Name="orientation" Type="Xamarin.Essentials.DisplayOrientation" />
+        <Parameter Name="rotation" Type="Xamarin.Essentials.DisplayRotation" />
+        <Parameter Name="rate" Type="System.Single" />
+      </Parameters>
+      <Docs>
+        <param name="width">The width of the display</param>
+        <param name="height">The height of the display</param>
+        <param name="density">The screen density</param>
+        <param name="orientation">The current orientation</param>
+        <param name="rotation">The rotation of the device.</param>
+        <param name="rate">The refresh rate of the display.</param>
+        <summary>Main constructor for Display Information</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
     <Member MemberName="Density">
       <MemberSignature Language="C#" Value="public double Density { get; }" />
       <MemberSignature Language="ILAsm" Value=".property instance float64 Density" />
@@ -68,7 +94,9 @@
         <summary>Gets a value representing the screen density.</summary>
         <value>The screen density.</value>
         <remarks>
-          <para></para>
+          <para>The density is the scaling or a factor that can be used to convert between physical pixels and scaled pixels. For example, on high resolution displays, the physical number of pixels increases, but the scaled pixels remain the same.</para>
+          <para>In a practical example for iOS, the Retina display will have a density of 2.0 or 3.0, but the units used to lay out a view does not change much. A view with a UI width of 100 may be 100 physical pixels (density = 1) on a non-Retina device, but be 200 physical pixels (density = 2) on a Retina device.</para>
+          <para>On Windows or UWP, the density works similarly, and may often relate to the scale used in the display. On some monitors, the scale is set to 100% (density = 1), but on other high resolution monitors, the scale may be set to 200% (density = 2) or even 250% (density = 2.5).</para>
         </remarks>
       </Docs>
     </Member>
@@ -91,9 +119,7 @@
         <param name="obj">Object to compare.</param>
         <summary>If equal to another object.</summary>
         <returns>If equal.</returns>
-        <remarks>
-          <para></para>
-        </remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Equals">
@@ -118,9 +144,7 @@
         <param name="other">The other display info to compare.</param>
         <summary>If equal to another object.</summary>
         <returns>If equal.</returns>
-        <remarks>
-          <para></para>
-        </remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="GetHashCode">
@@ -139,9 +163,7 @@
       <Docs>
         <summary>Gets the hash code for object.</summary>
         <returns>The hash code.</returns>
-        <remarks>
-          <para></para>
-        </remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Height">
@@ -159,9 +181,7 @@
       <Docs>
         <summary>Gets the height of the screen for the current orientation.</summary>
         <value>The height in pixels.</value>
-        <remarks>
-          <para></para>
-        </remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="op_Equality">
@@ -185,9 +205,7 @@
         <param name="right">Right to compare.</param>
         <summary>If equal to another object.</summary>
         <returns>If equal</returns>
-        <remarks>
-          <para></para>
-        </remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="op_Inequality">
@@ -211,9 +229,7 @@
         <param name="right">Right to compare</param>
         <summary>If not equal to another object.</summary>
         <returns>If not equal</returns>
-        <remarks>
-          <para></para>
-        </remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Orientation">
@@ -231,6 +247,24 @@
       <Docs>
         <summary>Gets the orientation of the device.</summary>
         <value>The orientation.</value>
+        <remarks></remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RefreshRate">
+      <MemberSignature Language="C#" Value="public float RefreshRate { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance float32 RefreshRate" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Essentials.DisplayInfo.RefreshRate" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Essentials</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Single</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets the refresh rate of the display.</summary>
+        <value>The refresh rate in Hz.</value>
         <remarks>
           <para></para>
         </remarks>
@@ -251,9 +285,7 @@
       <Docs>
         <summary>Gets the rotation from the designated orientation.</summary>
         <value>The rotation</value>
-        <remarks>
-          <para></para>
-        </remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="ToString">
@@ -272,9 +304,7 @@
       <Docs>
         <summary>String representation of information.</summary>
         <returns>String information about display info.</returns>
-        <remarks>
-          <para></para>
-        </remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Width">
@@ -292,9 +322,7 @@
       <Docs>
         <summary>Gets the width of the scrreen for the current orientation.</summary>
         <value>The width in pixels.</value>
-        <remarks>
-          <para></para>
-        </remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
   </Members>

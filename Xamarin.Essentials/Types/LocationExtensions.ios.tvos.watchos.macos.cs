@@ -8,6 +8,9 @@ namespace Xamarin.Essentials
 {
     public static partial class LocationExtensions
     {
+        [System.Runtime.InteropServices.DllImport(ObjCRuntime.Constants.ObjectiveCLibrary, EntryPoint = "objc_msgSend")]
+        static extern CLAuthorizationStatus CLAuthorizationStatus_objc_msgSend(IntPtr receiver, IntPtr selector);
+
         internal static Location ToLocation(this CLPlacemark placemark) =>
             new Location
             {
@@ -48,6 +51,25 @@ namespace Xamarin.Essentials
             {
                 return DateTimeOffset.UtcNow;
             }
+        }
+
+        internal static CLAuthorizationStatus GetAuthorizationStatus(this CLLocationManager locationManager)
+        {
+#if __MACOS__
+            if (DeviceInfo.Version >= new Version(11, 0))
+#elif __WATCHOS__
+            if (Platform.HasOSVersion(7, 0))
+#else
+            if (Platform.HasOSVersion(14, 0))
+#endif
+            {
+                // return locationManager.AuthorizationStatus;
+
+                var sel = ObjCRuntime.Selector.GetHandle("authorizationStatus");
+                return CLAuthorizationStatus_objc_msgSend(locationManager.Handle, sel);
+            }
+
+            return CLLocationManager.Status;
         }
     }
 }

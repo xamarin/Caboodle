@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Foundation;
 using MobileCoreServices;
@@ -54,8 +55,7 @@ namespace Xamarin.Essentials
             extension = extension?.TrimStart('.');
 
             var id = UTType.CreatePreferredIdentifier(UTType.TagClassFilenameExtension, extension, null);
-            var mimeTypes = UTType.CopyAllTags(id, UTType.TagClassMIMEType);
-            return mimeTypes?.Length > 0 ? mimeTypes[0] : null;
+            return GetTag(id, UTType.TagClassMIMEType);
         }
 
         internal void PlatformInit(FileBase file)
@@ -64,5 +64,8 @@ namespace Xamarin.Essentials
 
         internal virtual Task<Stream> PlatformOpenReadAsync() =>
             Task.FromResult((Stream)File.OpenRead(FullPath));
+
+        protected internal static string GetTag(string identifier, string tagClass)
+            => UTType.CopyAllTags(identifier, tagClass)?.FirstOrDefault();
     }
 }

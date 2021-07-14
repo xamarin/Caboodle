@@ -16,7 +16,7 @@ namespace Xamarin.Essentials
             color = color.UsingColorSpace(NSColorSpace.SRGBColorSpace);
 
             color.GetRgba(out var red, out var green, out var blue, out var alpha);
-            return Color.FromArgb((int)(alpha * 255), (int)(red * 255), (int)(green * 255), (int)(blue * 255));
+            return Color.FromArgb((int)Math.Round(alpha * 255), (int)Math.Round(red * 255), (int)Math.Round(green * 255), (int)Math.Round(blue * 255));
         }
 
         public static NSColor ToPlatformColor(this Color color) =>
