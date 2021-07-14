@@ -2,7 +2,7 @@
 
 namespace Xamarin.Essentials
 {
-    public partial class GeolocationRequest
+    public partial class ListeningRequest
     {
         internal double PlatformDesiredAccuracy
         {

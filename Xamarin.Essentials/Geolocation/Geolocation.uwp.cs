@@ -39,15 +39,68 @@ namespace Xamarin.Essentials
             var location = await geolocator.GetGeopositionAsync().AsTask(cancellationToken);
 
             return location?.Coordinate?.ToLocation();
+        }
 
-            void CheckStatus(PositionStatus status)
+        static void CheckStatus(PositionStatus status)
+        {
+            switch (status)
             {
-                switch (status)
-                {
-                    case PositionStatus.Disabled:
-                    case PositionStatus.NotAvailable:
-                        throw new FeatureNotEnabledException("Location services are not enabled on device.");
-                }
+                case PositionStatus.Disabled:
+                case PositionStatus.NotAvailable:
+                    throw new FeatureNotEnabledException("Location services are not enabled on device.");
+            }
+        }
+
+        static Geolocator listeningGeolocator;
+
+        static bool PlatformIsListening() => listeningGeolocator != null;
+
+        static async Task<bool> PlatformStartListeningForegroundAsync(ListeningRequest request)
+        {
+            if (request.MinimumTime.TotalMilliseconds < 0)
+                throw new ArgumentOutOfRangeException(nameof(request.MinimumTime));
+
+            if (PlatformIsListening())
+                throw new InvalidOperationException();
+
+            await Permissions.EnsureGrantedAsync<Permissions.LocationWhenInUse>();
+
+            listeningGeolocator = new Geolocator
+            {
+                DesiredAccuracyInMeters = request.PlatformDesiredAccuracy,
+                ReportInterval = (uint)request.MinimumTime.TotalMilliseconds,
+                MovementThreshold = request.PlatformDesiredAccuracy,
+            };
+
+            CheckStatus(listeningGeolocator.LocationStatus);
+
+            listeningGeolocator.PositionChanged += OnLocatorPositionChanged;
+            listeningGeolocator.StatusChanged += OnLocatorStatusChanged;
+
+            return true;
+        }
+
+        static Task<bool> PlatformStopListeningForegroundAsync()
+        {
+            if (!PlatformIsListening())
+                return Task.FromResult(true);
+
+            listeningGeolocator.PositionChanged -= OnLocatorPositionChanged;
+            listeningGeolocator.StatusChanged -= OnLocatorStatusChanged;
+
+            listeningGeolocator = null;
+
+            return Task.FromResult(true);
+        }
+
+        static void OnLocatorPositionChanged(Geolocator sender, PositionChangedEventArgs e) =>
+            OnLocationChanged(e.Position.ToLocation());
+
+        static async void OnLocatorStatusChanged(Geolocator sender, StatusChangedEventArgs e)
+        {
+            if (PlatformIsListening())
+            {
+                await PlatformStopListeningForegroundAsync();
             }
         }
     }

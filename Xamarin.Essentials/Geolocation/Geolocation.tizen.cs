@@ -63,5 +63,13 @@ namespace Xamarin.Essentials
 
             return lastKnownLocation;
         }
+
+        static bool PlatformIsListening() => false;
+
+        static Task<bool> PlatformStartListeningForegroundAsync(ListeningRequest request) =>
+            throw ExceptionUtils.NotSupportedOrImplementedException;
+
+        static Task<bool> PlatformStopListeningForegroundAsync() =>
+            throw ExceptionUtils.NotSupportedOrImplementedException;
     }
 }
