@@ -1,20 +1,20 @@
 ﻿namespace Xamarin.Essentials
 {
-    static class SensorSpeedExtensions
+    internal static partial class SensorSpeedExtensions
     {
         internal static uint ToPlatform(this SensorSpeed sensorSpeed)
         {
             switch (sensorSpeed)
             {
                 case SensorSpeed.Fastest:
-                    return 20;
+                    return sensorIntervalFastest;
                 case SensorSpeed.Game:
-                    return 40;
+                    return sensorIntervalGame;
                 case SensorSpeed.UI:
-                    return 80;
+                    return sensorIntervalUI;
             }
 
-            return 225;
+            return sensorIntervalDefault;
         }
     }
 }

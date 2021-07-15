@@ -28,7 +28,7 @@
       </ReturnValue>
       <MemberValue>0</MemberValue>
       <Docs>
-        <summary>The default sensor speed.</summary>
+        <summary>The default sensor rate (5 Hz, corresponding to an interval of 200 ms).</summary>
       </Docs>
     </Member>
     <Member MemberName="Fastest">
@@ -45,7 +45,7 @@
       </ReturnValue>
       <MemberValue>3</MemberValue>
       <Docs>
-        <summary>Get the sensor data as fast as possible.</summary>
+        <summary>Get the sensor data as fast as possible (the actual rate is platform-dependent).</summary>
       </Docs>
     </Member>
     <Member MemberName="Game">
@@ -62,7 +62,7 @@
       </ReturnValue>
       <MemberValue>2</MemberValue>
       <Docs>
-        <summary>Rate suitable for games.</summary>
+        <summary>Rate suitable for games (50 Hz, corresponding to an interval of 20 ms).</summary>
       </Docs>
     </Member>
     <Member MemberName="UI">
@@ -79,7 +79,7 @@
       </ReturnValue>
       <MemberValue>1</MemberValue>
       <Docs>
-        <summary>Rate suitable for general user interface.</summary>
+        <summary>Rate suitable for general user interface (16.6 Hz, corresponding to an interval of 60 ms).</summary>
       </Docs>
     </Member>
   </Members>

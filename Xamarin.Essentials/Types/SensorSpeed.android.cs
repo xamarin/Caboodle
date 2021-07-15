@@ -2,7 +2,7 @@
 
 namespace Xamarin.Essentials
 {
-    static class SensorSpeedExtensions
+    internal static partial class SensorSpeedExtensions
     {
         internal static SensorDelay ToPlatform(this SensorSpeed sensorSpeed)
         {
