@@ -116,6 +116,19 @@ namespace Xamarin.Essentials
 
         public partial class LocationWhenInUse : BasePlatformPermission
         {
+            static Geolocator gl = null;
+
+            internal static void Init()
+            {
+                if (gl == null)
+                {
+                    gl = new Geolocator();
+                    gl.StatusChanged += OnStatusChanged;
+                }
+            }
+
+            public LocationWhenInUse() => Init();
+
             protected override Func<IEnumerable<string>> RequiredDeclarations => () =>
                 new[] { "location" };
 
@@ -125,23 +138,44 @@ namespace Xamarin.Essentials
                 return RequestLocationPermissionAsync();
             }
 
+            static PermissionStatus status = PermissionStatus.Unknown;
+
+            static void OnStatusChanged(object sender, StatusChangedEventArgs e)
+            {
+                switch (e.Status)
+                {
+                    case PositionStatus.Disabled:
+                        status = PermissionStatus.Denied;
+                        break;
+                    case PositionStatus.Ready:
+                        status = PermissionStatus.Granted;
+                        break;
+                }
+            }
+
             internal static async Task<PermissionStatus> RequestLocationPermissionAsync()
             {
+                if (status == PermissionStatus.Granted || status == PermissionStatus.Denied)
+                    return status;
+
                 if (!MainThread.IsMainThread)
                     throw new PermissionException("Permission request must be invoked on main thread.");
 
                 var accessStatus = await Geolocator.RequestAccessAsync();
-                return accessStatus switch
+                status = accessStatus switch
                 {
                     GeolocationAccessStatus.Allowed => PermissionStatus.Granted,
                     GeolocationAccessStatus.Unspecified => PermissionStatus.Unknown,
                     _ => PermissionStatus.Denied,
                 };
+                return status;
             }
         }
 
         public partial class LocationAlways : BasePlatformPermission
         {
+            LocationAlways() => LocationWhenInUse.Init();
+
             protected override Func<IEnumerable<string>> RequiredDeclarations => () =>
                 new[] { "location" };
 
